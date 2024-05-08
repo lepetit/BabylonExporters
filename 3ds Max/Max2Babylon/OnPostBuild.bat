@@ -35,8 +35,22 @@ ECHO :: Copying plug-in files
 ECHO :: From: %source_dir%
 ECHO :: To: %dest_dir%
 
+ECHO "BABYLON FILE COPY!"
+
+if exist %dest_dir%\Max2Babylon.dll del /f /q %dest_dir%\Max2Babylon.dll
+COPY %source_dir%\Max2Babylon.dll %dest_dir%\Max2Babylon.dll
+
 if exist %dest_dir%\GDImageLibrary.dll del /f /q %dest_dir%\GDImageLibrary.dll
 COPY %source_dir%\GDImageLibrary.dll %dest_dir%\GDImageLibrary.dll
+
+if exist %dest_dir%\TargaImage.dll del /f /q %dest_dir%\TargaImage.dll
+COPY %source_dir%\TargaImage.dll %dest_dir%\TargaImage.dll
+
+if exist %dest_dir%\TQ.Texture.dll del /f /q %dest_dir%\TQ.Texture.dll
+COPY %source_dir%\TQ.Texture.dll %dest_dir%\TQ.Texture.dll
+
+ECHO "SKIPPING NON BABYLON FILE COPY!"
+GOTO Close
 
 if exist %dest_dir%\Newtonsoft.Json.dll del /f /q %dest_dir%\Newtonsoft.Json.dll
 COPY %source_dir%\Newtonsoft.Json.dll %dest_dir%\Newtonsoft.Json.dll
@@ -47,12 +61,6 @@ COPY %source_dir%\SharpDX.dll %dest_dir%\SharpDX.dll
 if exist %dest_dir%\SharpDX.Mathematics.dll del /f /q %dest_dir%\SharpDX.Mathematics.dll
 COPY %source_dir%\SharpDX.Mathematics.dll %dest_dir%\SharpDX.Mathematics.dll
 
-if exist %dest_dir%\TargaImage.dll del /f /q %dest_dir%\TargaImage.dll
-COPY %source_dir%\TargaImage.dll %dest_dir%\TargaImage.dll
-
-if exist %dest_dir%\TQ.Texture.dll del /f /q %dest_dir%\TQ.Texture.dll
-COPY %source_dir%\TQ.Texture.dll %dest_dir%\TQ.Texture.dll
-
 if exist %dest_dir%\Microsoft.WindowsAPICodePack.dll del /f /q %dest_dir%\Microsoft.WindowsAPICodePack.dll
 COPY %source_dir%\Microsoft.WindowsAPICodePack.dll %dest_dir%\Microsoft.WindowsAPICodePack.dll
 
@@ -62,8 +70,6 @@ COPY %source_dir%\Microsoft.WindowsAPICodePack.Shell.dll %dest_dir%\Microsoft.Wi
 if exist %dest_dir%\Microsoft.WindowsAPICodePack.ShellExtensions.dll del /f /q %dest_dir%\Microsoft.WindowsAPICodePack.ShellExtensions.dll
 COPY %source_dir%\Microsoft.WindowsAPICodePack.ShellExtensions.dll %dest_dir%\Microsoft.WindowsAPICodePack.ShellExtensions.dll
 
-if exist %dest_dir%\Max2Babylon.dll del /f /q %dest_dir%\Max2Babylon.dll
-COPY %source_dir%\Max2Babylon.dll %dest_dir%\Max2Babylon.dll
 
 IF %1=="Debug" GOTO DebugOnMax
 GOTO Close

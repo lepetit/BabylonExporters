@@ -273,7 +273,7 @@ namespace Max2Babylon
             IIMenuManager menuManager = Loader.Core.MenuManager;
 
             // Set up menu
-            menu = menuManager.FindMenu("Babylon");
+            menu = menuManager.FindMenu("VRMUR");
 
             if (menu != null)
             {
@@ -284,7 +284,7 @@ namespace Max2Babylon
 
             // Main menu
             menu = Loader.Global.IMenu;
-            menu.Title = "Babylon";
+            menu.Title = "VRMUR";
             menuManager.RegisterMenu(menu, 0);
 
             // Launch option
@@ -302,7 +302,7 @@ namespace Max2Babylon
             var rootQuadMenu = menuManager.GetViewportRightClickMenu(RightClickContext.NonePressed);
             var quadMenu = rootQuadMenu.GetMenu(0);
 
-            menu = menuManager.FindMenu("Babylon...");
+            menu = menuManager.FindMenu("VRMUR...");
 
             if (menu != null)
             {
@@ -312,36 +312,36 @@ namespace Max2Babylon
             }
 
             menu = Loader.Global.IMenu;
-            menu.Title = "Babylon...";
+            menu.Title = "VRMUR...";
             menuManager.RegisterMenu(menu, 0);
 
             menuItemBabylon = Loader.Global.IMenuItem;
-            menuItemBabylon.Title = "Babylon Properties";
+            menuItemBabylon.Title = "VRMUR Properties";
             menuItemBabylon.ActionItem = actionTable[1];
             menu.AddItem(menuItemBabylon, -1);
 
             menuItemBabylon = Loader.Global.IMenuItem;
-            menuItemBabylon.Title = "Babylon Animation Groups";
+            menuItemBabylon.Title = "VRMUR Animation Groups";
             menuItemBabylon.ActionItem = actionTable[2];
             menu.AddItem(menuItemBabylon, -1);
 
             menuItemBabylon = Loader.Global.IMenuItem;
-            menuItemBabylon.Title = "Babylon Save Animation To Containers";
+            menuItemBabylon.Title = "VRMUR Save Animation To Containers";
             menuItemBabylon.ActionItem = actionTable[3];
             menu.AddItem(menuItemBabylon, -1);
 
             menuItemBabylon = Loader.Global.IMenuItem;
-            menuItemBabylon.Title = "Babylon Load Animation From Containers";
+            menuItemBabylon.Title = "VRMUR Load Animation From Containers";
             menuItemBabylon.ActionItem = actionTable[4];
             menu.AddItem(menuItemBabylon, -1);
 
             menuItemBabylon = Loader.Global.IMenuItem;
-            menuItemBabylon.Title = "Babylon Toggle Skip Flatten Status";
+            menuItemBabylon.Title = "VRMUR Toggle Skip Flatten Status";
             menuItemBabylon.ActionItem = actionTable[5];
             menu.AddItem(menuItemBabylon, -1);
 
             menuItemBabylon = Loader.Global.IMenuItem;
-            menuItemBabylon.Title = "Babylon Actions Builder";
+            menuItemBabylon.Title = "VRMUR Actions Builder";
             menuItemBabylon.ActionItem = actionTable[6];
             menu.AddItem(menuItemBabylon, -1);
 

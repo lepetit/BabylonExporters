@@ -43,12 +43,12 @@ namespace Max2Babylon
 
         public override string ButtonText
         {
-            get { return "Babylon File Exporter"; }
+            get { return "VRMUR File Exporter"; }
         }
 
         public override string MenuText
         {
-            get { return "&Babylon File Exporter..."; }
+            get { return "&VRMUR File Exporter..."; }
         }
 
         public override string DescriptionText
@@ -58,7 +58,7 @@ namespace Max2Babylon
 
         public override string CategoryText
         {
-            get { return "Babylon"; }
+            get { return "VRMUR"; }
         }
 
         public override bool IsChecked_

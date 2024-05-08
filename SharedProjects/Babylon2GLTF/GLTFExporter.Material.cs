@@ -10,19 +10,29 @@ namespace Babylon2GLTF
     partial class GLTFExporter
     {
         private void ExportMaterial(BabylonMaterial babylonMaterial, GLTF gltf)
-        {
+        {            
+            //.NL.Qua inizia a loggare quando salva un materiale
             var name = babylonMaterial.name;
             logger.RaiseMessage("GLTFExporter.Material | Export material named: " + name, 1);
+
+            Type type = babylonMaterial.GetType();
+            while (type != null)
+            {
+                logger.RaiseVerbose("Material Type:" + type.Name, 2);
+                type = type.BaseType;
+            }
 
             GLTFMaterial gltfMaterial = null;
             IGLTFMaterialExporter customMaterialExporter = exportParameters.customGLTFMaterialExporter;
             if (customMaterialExporter != null && customMaterialExporter.GetGltfMaterial(babylonMaterial, gltf, logger, out gltfMaterial))
             {
+                logger.RaiseVerbose(".NL.customMaterialExporter", 2);
                 gltfMaterial.index = gltf.MaterialsList.Count;
                 gltf.MaterialsList.Add(gltfMaterial);
             }
             else if (babylonMaterial is BabylonStandardMaterial babylonStandardMaterial)
             {
+                logger.RaiseVerbose(".NL.babylonStandardMaterial", 2);
                 // --- prints ---
                 #region prints
 
@@ -378,8 +388,10 @@ namespace Babylon2GLTF
                     }
                 }
             }
-            else if (babylonMaterial is BabylonPBRMaterial babylonPbrMaterial)
+            else if (babylonMaterial is BabylonPBRMaterial babylonPbrMaterial) //.NL.Qua è gestito il material_transmission
             {
+                logger.RaiseVerbose(".NL.babylonPbrMaterial", 2);
+
                 // --- prints ---
                 #region prints
 
@@ -455,11 +467,18 @@ namespace Babylon2GLTF
                 GLTFMaterial.AlphaMode alphaMode;
                 float? alphaCutoff;
                 getAlphaMode(babylonPbrMaterial, out alphaMode, out alphaCutoff);
+
+                logger.RaiseVerbose("alphaMode - " + alphaMode.ToString(), 2);
+                logger.RaiseVerbose("O alphaCutoff - " + gltfMaterial.alphaCutoff.HasValue + " -> " + gltfMaterial.alphaCutoff.Value, 2);
+
                 gltfMaterial.alphaMode = alphaMode;
                 if (alphaCutoff.HasValue && alphaCutoff.Value != 0.5f) // do not export glTF default value
                 {
                     gltfMaterial.alphaCutoff = alphaCutoff;
                 }
+
+                logger.RaiseVerbose("U alphaCutoff - " + gltfMaterial.alphaCutoff.HasValue + " -> " + gltfMaterial.alphaCutoff.Value, 2);
+
 
                 // DoubleSided
                 gltfMaterial.doubleSided = babylonPbrMaterial.twoSidedLighting;
@@ -600,6 +619,8 @@ namespace Babylon2GLTF
                     gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
                     gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_specular", ext);
                 }
+                //.NL.Aggiunti i messaggi di log x 
+                logger.RaiseMessage("isRefractionEnabled:" + pbrMRMat.subSurface.isRefractionEnabled, 1);
                 if (pbrMRMat.subSurface.isRefractionEnabled)
                 {
                     var s = pbrMRMat.subSurface;
@@ -610,6 +631,9 @@ namespace Babylon2GLTF
                     };
                     gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
                     gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_transmission", ext);
+
+                    logger.RaiseMessage("Add KHR_materials_transmission - Factor:" + ext.transmissionFactor + " Texture:" + ext.transmissionTexture,  1);
+
                 }
                 if (pbrMRMat.IsVolumeEnabled())
                 {
@@ -630,6 +654,8 @@ namespace Babylon2GLTF
             }
             else if (typeof(BabylonPBRBaseSimpleMaterial).IsAssignableFrom(babylonMaterial.GetType()))
             {
+                logger.RaiseVerbose(".NL.BabylonPBRBaseSimpleMaterial", 2);
+
                 var babylonPBRBaseSimpleMaterial = babylonMaterial as BabylonPBRBaseSimpleMaterial;
 
                 // --- prints ---
@@ -879,6 +905,8 @@ namespace Babylon2GLTF
             }
             else if (babylonMaterial.GetType() == typeof(BabylonFurMaterial))
             {
+                logger.RaiseVerbose(".NL.BabylonFurMaterial", 2);
+
                 // TODO - Implement proper handling of BabylonFurMaterial once gLTF spec has support
                 var babylonPBRFurMaterial = babylonMaterial as BabylonFurMaterial;
 

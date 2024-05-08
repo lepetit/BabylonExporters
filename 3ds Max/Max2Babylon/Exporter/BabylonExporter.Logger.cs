@@ -1,6 +1,8 @@
 using Autodesk.Max;
 using System;
 using System.Drawing;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace Max2Babylon
 {
@@ -15,7 +17,9 @@ namespace Max2Babylon
         }
 
         // TODO - Update log level for release
-        public LogLevel logLevel = LogLevel.MESSAGE;
+        //.NL.Cambiato il livello di logging da MESSAGE a VERBOSE
+        //public LogLevel logLevel = LogLevel.MESSAGE;
+        public LogLevel logLevel = LogLevel.VERBOSE;
 
         public event Action<int> OnExportProgressChanged;
         public event Action<string, int> OnError;
@@ -161,7 +165,10 @@ namespace Max2Babylon
                                 break;
                             case PropType.UnknownProp:
                             default:
-                                RaiseVerbose("Unknown property type", logRank + 2);
+                                string propv = tryPropType(prop);
+
+                                if (propv != string.Empty)
+                                    RaiseVerbose("Unknown property type: " + propv, logRank + 2);
                                 break;
                         }
                     }
@@ -171,6 +178,64 @@ namespace Max2Babylon
                     }
                 }
             }
+        }
+
+        private string tryPropType(IIGameProperty prop) {
+            string propV = "";
+            bool isV = false;
+
+            try
+            {
+                IPoint4 pp4 = Loader.Global.Point4.Create(0, 0, 0, 0);
+                prop.GetPropertyValue(pp4, 0);
+                propV+= " Point4 -> " + Point4ToString(pp4);
+                if (pp4.X != 0 || pp4.Y != 0 || pp4.Z != 0 || pp4.W != 0)
+                    isV = true;
+            }
+            catch { }
+            try
+            {
+                IPoint3 pp3 = Loader.Global.Point3.Create(0, 0, 0);
+                prop.GetPropertyValue(pp3, 0);
+                propV += " Point3 -> " + Point3ToString(pp3);
+                if (pp3.X != 0 || pp3.Y != 0 || pp3.Z != 0)
+                    isV = true;
+            }
+            catch { }
+            try
+            {
+                float propertyFloatT = 0;
+                float propertyFloatF = 0;
+                prop.GetPropertyValue(ref propertyFloatT, 0, true);
+                prop.GetPropertyValue(ref propertyFloatF, 0, false);
+                propV += " float -> " + propertyFloatT + " : " + propertyFloatF;
+                if (propertyFloatF != 0 || propertyFloatT != 0)
+                    isV = true;
+            }
+            catch { }
+            try
+            {
+                int propertyInt = 0;
+                prop.GetPropertyValue(ref propertyInt, 0);
+                propV += " int -> " + propertyInt;
+                if (propertyInt != 0)
+                    isV = true;
+            }
+            catch { }
+            try
+            {
+                string propertyString = "";
+                prop.GetPropertyValue(ref propertyString, 0);
+                propV += " string -> " +  propertyString;
+                if (String.IsNullOrWhiteSpace(propertyString))
+                    isV = true;
+            }
+            catch { }
+
+            if (isV)
+                return propV;
+
+            return string.Empty;
         }
 
         // -------------------------

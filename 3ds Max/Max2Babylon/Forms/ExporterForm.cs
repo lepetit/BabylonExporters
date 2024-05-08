@@ -54,8 +54,7 @@ namespace Max2Babylon
             InitializeComponent();
             RegisterFilePostOpen();
 
-
-            this.Text = $"Babylon.js - Export scene to babylon or glTF format v{BabylonExporter.exporterVersion}";
+            this.Text = $"VRMUR - Export scene to VMRUR format v{BabylonExporter.exporterVersion}";
 
             this.babylonExportAction = babylonExportAction;
 
@@ -81,7 +80,7 @@ namespace Max2Babylon
             Tools.PrepareCheckBox(chkWriteTextures, Loader.Core.RootNode, "babylonjs_writetextures", 1);
             Tools.PrepareCheckBox(chkOverwriteTextures, Loader.Core.RootNode, "babylonjs_overwritetextures", 1);
             Tools.PrepareCheckBox(chkHidden, Loader.Core.RootNode, "babylonjs_exporthidden");
-            Tools.PrepareCheckBox(chkAutoSave, Loader.Core.RootNode, "babylonjs_autosave", 1);
+            Tools.PrepareCheckBox(chkAutoSave, Loader.Core.RootNode, "babylonjs_autosave", 0);
             Tools.PrepareCheckBox(chkOnlySelected, Loader.Core.RootNode, "babylonjs_onlySelected");
             Tools.PrepareCheckBox(chkExportTangents, Loader.Core.RootNode, "babylonjs_exporttangents");
             Tools.PrepareComboBox(comboOutputFormat, Loader.Core.RootNode, "babylonjs_outputFormat", "babylon");
@@ -149,11 +148,11 @@ namespace Max2Babylon
             var maxVersion = Tools.GetMaxVersion();
             if (maxVersion.Major == 22 && maxVersion.Minor < 2)
             {
-                CreateErrorMessage("You must update 3dsMax 2020 to version 2020.2 to use Max2Babylon. Unpatched versions of 3dsMax will crash during export.", 0);
+                CreateErrorMessage("You must update 3dsMax 2020 to version 2020.2 to use Max2VrMur. Unpatched versions of 3dsMax will crash during export.", 0);
             }
             else
             {
-                CreateMessage(String.Format("Using Max2Babylon for 3dsMax version v{0}.{1}.{2}.{3}", maxVersion.Major, maxVersion.Minor, maxVersion.Revision, maxVersion.BuildNumber), Color.Black, 0, true);
+                CreateMessage(String.Format("Using Max2VrMur for 3dsMax version v{0}.{1}.{2}.{3}", maxVersion.Major, maxVersion.Minor, maxVersion.Revision, maxVersion.BuildNumber), Color.Black, 0, true);
             }
         }
 

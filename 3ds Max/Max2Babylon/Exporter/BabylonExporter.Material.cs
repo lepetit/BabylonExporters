@@ -180,7 +180,7 @@ namespace Max2Babylon
                 return;
             }
 
-            RaiseMessage(name, 1);
+            RaiseMessage("ExportMaterial:" + name, 1);
 
             // --- prints ---
 #region prints
@@ -199,7 +199,9 @@ namespace Max2Babylon
 #endif
                 }
             }
-#endregion
+            #endregion
+
+            RaiseMessage("SubMaterialCount:" + materialNode.SubMaterialCount, 2);
 
             if (materialNode.SubMaterialCount > 0)
             {
@@ -249,7 +251,8 @@ namespace Max2Babylon
             materialExporters.TryGetValue(new ClassIDWrapper(materialNode.MaxMaterial.ClassID), out IMaxMaterialExporter materialExporter);
 
             IStdMat2 stdMat = null;
-            var maxMaterial = materialNode.MaxMaterial;
+            IMtl maxMaterial = materialNode.MaxMaterial;
+
             if (maxMaterial != null && maxMaterial.NumParamBlocks > 0)
             {
                 var paramBlock = maxMaterial.GetParamBlock(0);
@@ -259,8 +262,15 @@ namespace Max2Babylon
                 }
             }
 
+            RaiseVerbose("maxMaterial: " + (maxMaterial != null), 2);
+            RaiseVerbose("stdMat: " + (stdMat != null), 2);
+            RaiseVerbose("isBabylonExported: " + isBabylonExported, 2);
+            RaiseVerbose("isGltfExported: " + isGltfExported, 2);
+
             if (isBabylonExported && materialExporter != null && materialExporter is IMaxBabylonMaterialExporter)
             {
+                RaiseVerbose("IN babylonMaterialExporter", 2);
+
                 IMaxBabylonMaterialExporter babylonMaterialExporter = materialExporter as IMaxBabylonMaterialExporter;
                 BabylonMaterial babylonMaterial = babylonMaterialExporter.ExportBabylonMaterial(materialNode);
                 if (babylonMaterial == null)
@@ -269,20 +279,29 @@ namespace Max2Babylon
                         babylonMaterialExporter.GetType().ToString(), materialNode.MaterialName, materialNode.MaterialClass);
                     RaiseWarning(message, 2);
                 }
-                else babylonScene.MaterialsList.Add(babylonMaterial);
+                else
+                {
+                    RaiseVerbose("1st Case: " + babylonMaterial.name, 2);
+                    babylonScene.MaterialsList.Add(babylonMaterial);
+                }
             }
             else if (isGltfExported && materialExporter != null && materialExporter is IMaxGLTFMaterialExporter)
             {
+                RaiseVerbose("IN BabylonMaterial", 2);
+
                 // add a basic babylon material to the list to forward the max material reference
                 var babylonMaterial = new BabylonMaterial(id)
                 {
                     maxGameMaterial = materialNode,
                     name = name
                 };
+                RaiseVerbose("2nd Case: " + babylonMaterial.name, 2);
                 babylonScene.MaterialsList.Add(babylonMaterial);
             }
             else if (stdMat != null)
             {
+                RaiseVerbose("IN BabylonStandardMaterial", 2);
+
                 var babylonMaterial = new BabylonStandardMaterial(id)
                 {
                     maxGameMaterial = materialNode,
@@ -291,9 +310,12 @@ namespace Max2Babylon
                     diffuse = materialNode.MaxMaterial.GetDiffuse(0, false).ToArray()
                 };
                 ExportStandardMaterial(materialNode, attributesContainer, stdMat, babylonScene, babylonMaterial);
+                RaiseVerbose("Standard Material: " + babylonMaterial.name, 2);
             }
             else if (isPhysicalMaterial(materialNode))
             {
+                RaiseVerbose("IN BabylonPBRMetallicRoughnessMaterial", 2);
+
                 var babylonMaterial = new BabylonPBRMetallicRoughnessMaterial(id)
                 {
                     maxGameMaterial = materialNode,
@@ -301,23 +323,29 @@ namespace Max2Babylon
                     isUnlit = isUnlit
                 };
                 ExportPhysicalMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
+                RaiseVerbose("Physical Material: " + babylonMaterial.name, 2);
             }
             else if (isPbrMetalRoughMaterial(materialNode))
             {
                 ExportPbrMetalRoughMaterial(materialNode, babylonScene);
+                RaiseVerbose("Metal Rough Material", 2);
             }
             else if (isPbrSpecGlossMaterial(materialNode))
             {
                 ExportPbrSpecGlossMaterial(materialNode, babylonScene);
+                RaiseVerbose("Spec Gloss Material", 2);
             }
 #if MAX2023 || MAX2024
             else if (isGLTFMaterial(materialNode))
             {
                 ExportGLTFMaterial(materialNode, babylonScene);
+                RaiseVerbose("GLTF Material", 2);
             }
 #endif
             else if (isArnoldMaterial(materialNode))
             {
+                RaiseVerbose("IN isArnoldMaterial", 2);
+
                 var babylonMaterial = new BabylonPBRMetallicRoughnessMaterial(id)
                 {
                     maxGameMaterial = materialNode,
@@ -326,6 +354,7 @@ namespace Max2Babylon
                 };
 
                 ExportArnoldMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
+                RaiseVerbose("Arnold Material", 2);
             }
             else
             {
@@ -569,6 +598,7 @@ namespace Max2Babylon
                 {
                     babylonMaterial.transparencyMode = gameProperty.GetIntValue();
                     isTransparencyModeFromBabylonAttributes = true;
+                    RaiseVerbose(".NL.Attribute TransparencyMode:" + babylonMaterial.transparencyMode, 2);
                 }
                 gameProperty = attributesContainer.QueryProperty("babylonUseFactors");
                 if (gameProperty != null)
@@ -576,14 +606,20 @@ namespace Max2Babylon
                     usePbrFactor = gameProperty.GetBoolValue();
                 }
             }
+            else
+            {
+                RaiseVerbose(".NL.attributesContainer is NULL", 2);
+            }
 
             // --- Global ---
 
             // Alpha
+            //.NL.Converte la transparency da positiva a negativa
             if (isTransparencyModeFromBabylonAttributes == false || babylonMaterial.transparencyMode != 0)
             {
                 // Convert transparency to opacity
                 babylonMaterial.alpha = 1.0f - propertyContainer.GetFloatProperty(17);
+                RaiseVerbose(".NL.new alpha value for " + materialNode.MaterialName + " is:" + babylonMaterial.alpha, 2);
             }
 
             babylonMaterial.baseColor = materialNode.MaxMaterial.GetDiffuse(0, false).ToArray();
@@ -753,13 +789,14 @@ namespace Max2Babylon
                 babylonMaterial.emissive = new[] { 1.0f, 1.0f, 1.0f };
             }
 
-
             if (babylonMaterial.transparencyMode == (int)BabylonPBRMetallicRoughnessMaterial.TransparencyMode.ALPHATEST)
             {
                 // Set the alphaCutOff value explicitely to avoid different interpretations on different engines
                 // Use the glTF default value rather than the babylon one
                 babylonMaterial.alphaCutOff = 0.5f;
             }
+
+            RaiseVerbose(".NL.alphaCutOff " + materialNode.MaterialName + " " + babylonMaterial.alphaCutOff + " Mode:" + babylonMaterial.transparencyMode, 2);
 
             // Add babylon attributes
             if (attributesContainer == null)

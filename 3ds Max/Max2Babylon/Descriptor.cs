@@ -21,7 +21,7 @@ namespace Max2Babylon
         {
             get
             {
-                return "Babylon File Exporter";
+                return "VRMUR File Exporter";
             }
         }
 
@@ -45,12 +45,12 @@ namespace Max2Babylon
         {
             get
             {
-                return "Babylon";
+                return "VRMUR";
             }
         }
 
 #if MAX2022 || MAX2023 || MAX2024
-        public override string NonLocalizedClassName => "Babylon File Exporter";
+        public override string NonLocalizedClassName => "VRMUR File Exporter";
 #endif
     }
 }
