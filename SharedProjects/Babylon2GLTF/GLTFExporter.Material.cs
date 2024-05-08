@@ -659,7 +659,7 @@ namespace Babylon2GLTF
                 var babylonPBRBaseSimpleMaterial = babylonMaterial as BabylonPBRBaseSimpleMaterial;
 
                 // --- prints ---
-                #region prints
+                #region prints                
 
                 logger.RaiseVerbose("GLTFExporter.Material | babylonMaterial data", 2);
                 logger.RaiseVerbose("GLTFExporter.Material | babylonMaterial.alpha=" + babylonMaterial.alpha, 3);

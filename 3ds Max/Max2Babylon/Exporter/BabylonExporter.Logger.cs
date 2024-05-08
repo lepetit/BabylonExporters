@@ -1,5 +1,6 @@
 using Autodesk.Max;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
@@ -180,6 +181,33 @@ namespace Max2Babylon
             }
         }
 
+        /// <summary>
+        /// VRMUR - Export groupd values
+        /// 
+        /// Esporta tutti i metadati se quello di reiferimento è valorizzato
+        /// </summary>
+        /// <param name="propertyContainer"></param>
+        /// <param name="metadata"></param>
+        /// <param name="mainIndex"></param>
+        /// <param name="otherIndex"></param>
+        public void getGroupedProperty(IIPropertyContainer propertyContainer, Dictionary<string, object> metadata, int mainIndex, int[] otherIndex)
+        {
+            var prop = propertyContainer.GetProperty(mainIndex);
+
+            if (isPropValued(prop))
+            {
+                var value = getPropertyValue(prop);
+                metadata.Add(prop.Name, value);
+
+                foreach (int idx in otherIndex)
+                {
+                    prop = propertyContainer.GetProperty(idx);
+                    value = getPropertyValue(prop);
+                    metadata.Add(prop.Name, value);
+                }
+            }
+        }
+
         private string tryPropType(IIGameProperty prop) {
             string propV = "";
             bool isV = false;
@@ -227,7 +255,7 @@ namespace Max2Babylon
                 string propertyString = "";
                 prop.GetPropertyValue(ref propertyString, 0);
                 propV += " string -> " +  propertyString;
-                if (String.IsNullOrWhiteSpace(propertyString))
+                if (!String.IsNullOrWhiteSpace(propertyString))
                     isV = true;
             }
             catch { }
@@ -238,9 +266,95 @@ namespace Max2Babylon
             return string.Empty;
         }
 
+        private bool isPropValued(IIGameProperty prop)
+        {
+            IPoint4 pp4 = Loader.Global.Point4.Create(0, 0, 0, 0);
+            prop.GetPropertyValue(pp4, 0);
+            if (pp4.X != 0 || pp4.Y != 0 || pp4.Z != 0 || pp4.W != 0)
+                return true;
+
+            IPoint3 pp3 = Loader.Global.Point3.Create(0, 0, 0);
+            prop.GetPropertyValue(pp3, 0);
+            if (pp3.X != 0 || pp3.Y != 0 || pp3.Z != 0)
+                return true;
+
+            float propertyFloatT = 0;
+            float propertyFloatF = 0;
+            prop.GetPropertyValue(ref propertyFloatT, 0, true);
+            prop.GetPropertyValue(ref propertyFloatF, 0, false);
+            if (propertyFloatF != 0 || propertyFloatT != 0)
+                return true;
+
+            int propertyInt = 0;
+            prop.GetPropertyValue(ref propertyInt, 0);
+            if (propertyInt != 0)
+                return true;
+
+            string propertyString = "";
+            prop.GetPropertyValue(ref propertyString, 0);
+            if (!String.IsNullOrWhiteSpace(propertyString))
+                return true;
+
+            return false;
+        }
+
+
+
+        public object getPropertyValue(IIGameProperty prop)
+        {
+            if (prop != null)
+            {
+                switch (prop.GetType_)
+                {
+                    case PropType.StringProp:
+                        string propertyString = "";
+                        prop.GetPropertyValue(ref propertyString, 0);
+                        return propertyString;
+
+                    case PropType.IntProp:
+                        int propertyInt = 0;
+                        prop.GetPropertyValue(ref propertyInt, 0);
+                        return propertyInt;
+
+                    case PropType.FloatProp:
+                        float propertyFloatT = 0;
+                        float propertyFloatF = 0;
+                        prop.GetPropertyValue(ref propertyFloatT, 0, true);
+                        prop.GetPropertyValue(ref propertyFloatF, 0, false);
+                        return new float[2] { propertyFloatT, propertyFloatF };
+
+                    case PropType.Point3Prop:
+                        IPoint3 propertyPoint3 = Loader.Global.Point3.Create(0, 0, 0);
+                        prop.GetPropertyValue(propertyPoint3, 0);
+                        return propertyPoint3.ToArray();
+
+                    case PropType.Point4Prop:
+                        IPoint4 propertyPoint4 = Loader.Global.Point4.Create(0, 0, 0, 0);
+                        prop.GetPropertyValue(propertyPoint4, 0);
+                        return propertyPoint4.ToArray();
+
+                    case PropType.UnknownProp:
+                    default:
+                        return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
         // -------------------------
         // --------- Utils ---------
         // -------------------------
+
+
+        private float[] Point4toFloat(IPoint4 point)
+        {
+            return new float[4] { point.X, point.Y, point.Z, point.W };
+        }
+
 
         private string ColorToString(IColor color)
         {

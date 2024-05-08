@@ -84,6 +84,7 @@ namespace Max2Babylon
             string result = ManagedServices.MaxscriptSDK.ExecuteStringMaxscriptQuery(cmd);
 #endif
 
+
             if (result == null || result == "")
             {
                 return null;
@@ -96,6 +97,9 @@ namespace Max2Babylon
             {
                 string[] customAttribute = parameter.Split(new string[] { "_$€PType_" }, StringSplitOptions.RemoveEmptyEntries);
                 string key = customAttribute[0];
+
+                RaiseVerbose("extra:" + key + " -> " + customAttribute[1], 2);
+
                 if (customAttributesTypeByName.ContainsKey(key) == false)
                 {
                     customAttributesTypeByName.Add(key, customAttribute[1]);
