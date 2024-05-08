@@ -51,7 +51,7 @@ namespace Max2Babylon
         /// <param name="excludeAttributes">Attribute names to not export</param>
         private Dictionary<string, object> _ExportExtraAttributes(IIPropertyContainer propertyContainer, BabylonScene babylonScene, List<string> excludeAttributes = null)
         {
-            RaiseMessage("ExportExtraAttributes", 2);
+            //RaiseMessage("ExportExtraAttributes", 2);
 
             // Return a string encoded with 2 separators
             // Parameter separator: _$€PParam_
@@ -98,7 +98,7 @@ namespace Max2Babylon
                 string[] customAttribute = parameter.Split(new string[] { "_$€PType_" }, StringSplitOptions.RemoveEmptyEntries);
                 string key = customAttribute[0];
 
-                RaiseVerbose("extra:" + key + " -> " + customAttribute[1], 2);
+                //RaiseVerbose("extra:" + key + " -> " + customAttribute[1], 2);
 
                 if (customAttributesTypeByName.ContainsKey(key) == false)
                 {

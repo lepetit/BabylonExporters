@@ -279,7 +279,7 @@ namespace Max2Babylon
                     Loader.Core.SetQuietMode(true);
                     Loader.Core.FileFetch();
                     Loader.Core.SetQuietMode(false);
-                }
+                }                
             }
         }
 
@@ -623,7 +623,7 @@ namespace Max2Babylon
                 if (rank < 0 || rank > currentRank + 1)
                 {
                     rank = 0;
-                    logTreeView.Nodes.Add(new TreeNode("Invalid rank passed to CreateTreeNode (through RaiseMessage, RaiseWarning or RaiseError)!") { ForeColor = Color.DarkOrange });
+                    logTreeView.Nodes.Add(new TreeNode(text + "Invalid rank passed to CreateTreeNode (through RaiseMessage, RaiseWarning or RaiseError)!") { ForeColor = Color.DarkOrange });
                 }
                 if (rank == 0)
                 {

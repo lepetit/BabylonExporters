@@ -201,7 +201,7 @@ namespace Max2Babylon
             }
             #endregion
 
-            RaiseMessage("SubMaterialCount:" + materialNode.SubMaterialCount, 2);
+            //RaiseMessage("SubMaterialCount:" + materialNode.SubMaterialCount);
 
             if (materialNode.SubMaterialCount > 0)
             {
@@ -796,7 +796,7 @@ namespace Max2Babylon
                 babylonMaterial.alphaCutOff = 0.5f;
             }
 
-            RaiseVerbose(".NL.alphaCutOff " + materialNode.MaterialName + " " + babylonMaterial.alphaCutOff + " Mode:" + babylonMaterial.transparencyMode, 2);
+            //RaiseVerbose(".NL.alphaCutOff " + materialNode.MaterialName + " " + babylonMaterial.alphaCutOff + " Mode:" + babylonMaterial.transparencyMode, 2);
 
             // Add babylon attributes
             if (attributesContainer == null)
@@ -806,7 +806,7 @@ namespace Max2Babylon
 
             if (attributesContainer != null)
             {
-                RaiseVerbose("Babylon Attributes of " + materialNode.MaterialName, 2);
+                //RaiseVerbose("Babylon Attributes of " + materialNode.MaterialName, 2);
 
                 // Common attributes
                 ExportCommonBabylonAttributes(attributesContainer, babylonMaterial);

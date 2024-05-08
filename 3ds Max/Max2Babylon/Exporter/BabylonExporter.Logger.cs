@@ -19,8 +19,8 @@ namespace Max2Babylon
 
         // TODO - Update log level for release
         //.NL.Cambiato il livello di logging da MESSAGE a VERBOSE
-        //public LogLevel logLevel = LogLevel.MESSAGE;
-        public LogLevel logLevel = LogLevel.VERBOSE;
+        public LogLevel logLevel = LogLevel.MESSAGE;
+        //public LogLevel logLevel = LogLevel.VERBOSE;
 
         public event Action<int> OnExportProgressChanged;
         public event Action<string, int> OnError;
@@ -192,18 +192,28 @@ namespace Max2Babylon
         /// <param name="otherIndex"></param>
         public void getGroupedProperty(IIPropertyContainer propertyContainer, Dictionary<string, object> metadata, int mainIndex, int[] otherIndex)
         {
+            if (metadata == null || propertyContainer == null)
+                return;
+
             var prop = propertyContainer.GetProperty(mainIndex);
 
             if (isPropValued(prop))
             {
                 var value = getPropertyValue(prop);
-                metadata.Add(prop.Name, value);
+
+                if (!metadata.ContainsKey(prop.Name))
+                    metadata.Add(prop.Name, value);
 
                 foreach (int idx in otherIndex)
                 {
                     prop = propertyContainer.GetProperty(idx);
-                    value = getPropertyValue(prop);
-                    metadata.Add(prop.Name, value);
+
+                    if (prop != null)
+                    {
+                        value = getPropertyValue(prop);
+                        if (!metadata.ContainsKey(prop.Name))
+                            metadata.Add(prop.Name, value);
+                    }
                 }
             }
         }
@@ -268,6 +278,9 @@ namespace Max2Babylon
 
         private bool isPropValued(IIGameProperty prop)
         {
+            if (prop == null) 
+                return false;
+
             IPoint4 pp4 = Loader.Global.Point4.Create(0, 0, 0, 0);
             prop.GetPropertyValue(pp4, 0);
             if (pp4.X != 0 || pp4.Y != 0 || pp4.Z != 0 || pp4.W != 0)

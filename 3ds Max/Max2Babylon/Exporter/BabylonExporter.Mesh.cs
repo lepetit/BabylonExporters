@@ -274,7 +274,7 @@ namespace Max2Babylon
 
                 if (unskinnedMesh.NumberOfVerts >= 65536)
                 {
-                    RaiseWarning($"Mesh {babylonMesh.name} has tmore than 65536 vertices which means that it will require specific WebGL extension to be rendered. This may impact portability of your scene on low end devices.", 2);
+                    //RaiseWarning($"Mesh {babylonMesh.name} has tmore than 65536 vertices which means that it will require specific WebGL extension to be rendered. This may impact portability of your scene on low end devices.", 2);
                 }
 
                 if (skin != null)
@@ -403,7 +403,7 @@ namespace Max2Babylon
 
                 if (vertices.Count >= 65536)
                 {
-                    RaiseWarning($"Mesh {babylonMesh.name} has {vertices.Count} vertices. This may prevent your scene to work on low end devices where 32 bits indice are not supported", 2);
+                    //RaiseWarning($"Mesh {babylonMesh.name} has {vertices.Count} vertices. This may prevent your scene to work on low end devices where 32 bits indice are not supported", 2);
 
                     if (!optimizeVertices)
                     {

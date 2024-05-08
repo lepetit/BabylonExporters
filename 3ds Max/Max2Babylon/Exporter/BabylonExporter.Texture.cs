@@ -1214,7 +1214,7 @@ namespace Max2Babylon
             }
 
 #if DEBUG
-            RaiseMessage(MaxTextureTransformToString(uvGen));
+            RaiseVerbose(MaxTextureTransformToString(uvGen));
 #endif 
 
             var offset = new BabylonVector3(uvGen.GetUOffs(0), uvGen.GetVOffs(0), 0);
@@ -1267,7 +1267,7 @@ namespace Max2Babylon
             babylonTexture.wAng = rotationEuler.Z;
 
 #if DEBUG
-            RaiseMessage(BabylonTextureTransformToString(babylonTexture));
+            RaiseVerbose(BabylonTextureTransformToString(babylonTexture));
 #endif
             if (Path.GetExtension(babylonTexture.name).ToLower() == ".dds")
             {

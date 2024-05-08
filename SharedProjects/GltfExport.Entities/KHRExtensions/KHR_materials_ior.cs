@@ -15,7 +15,7 @@ namespace GLTFExport.Entities
 
         public bool ShouldSerializeior()
         {
-            return (ior != null && ior != DefaultIOR);
+            return (ior != null); // && ior != DefaultIOR);
         }
     }
 }
