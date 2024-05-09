@@ -51,10 +51,10 @@ namespace Max2Babylon
             this.chkFlatten = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            //this.label7 = new System.Windows.Forms.Label();
             this.txtEnvironmentName = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.chkFullPBR = new System.Windows.Forms.CheckBox();
+            //this.chkFullPBR = new System.Windows.Forms.CheckBox();
             this.btnEnvBrowse = new System.Windows.Forms.Button();
             this.chkNoAutoLight = new System.Windows.Forms.CheckBox();
             this.textureLabel = new System.Windows.Forms.Label();
@@ -67,7 +67,7 @@ namespace Max2Babylon
             this.chkOverwriteTextures = new System.Windows.Forms.CheckBox();
             this.chkDoNotOptimizeAnimations = new System.Windows.Forms.CheckBox();
             this.chkAnimgroupExportNonAnimated = new System.Windows.Forms.CheckBox();
-            this.chkDracoCompression = new System.Windows.Forms.CheckBox();
+            //this.chkDracoCompression = new System.Windows.Forms.CheckBox();
             this.chkMergeAO = new System.Windows.Forms.CheckBox();
             this.txtQuality = new System.Windows.Forms.TextBox();
             this.labelQuality = new System.Windows.Forms.Label();
@@ -81,10 +81,10 @@ namespace Max2Babylon
             this.chkOnlySelected = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
             this.chkHidden = new System.Windows.Forms.CheckBox();
-            this.butExportAndRun = new System.Windows.Forms.Button();
+            //this.butExportAndRun = new System.Windows.Forms.Button();
             this.butClose = new System.Windows.Forms.Button();
-            this.toolTipDracoCompression = new System.Windows.Forms.ToolTip(this.components);
-            this.butMultiExport = new System.Windows.Forms.Button();
+            //this.toolTipDracoCompression = new System.Windows.Forms.ToolTip(this.components);
+            //this.butMultiExport = new System.Windows.Forms.Button();
             this.saveOptionBtn = new System.Windows.Forms.Button();
             this.envFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.butCopyToClipboard = new System.Windows.Forms.Button();
@@ -94,15 +94,15 @@ namespace Max2Babylon
             this.chkUseClone = new System.Windows.Forms.CheckBox();
             this.chkTryReuseTexture = new System.Windows.Forms.CheckBox();
             this.advancedTabPage = new System.Windows.Forms.TabPage();
-            this.dracoGroupBox = new System.Windows.Forms.GroupBox();
+            //this.dracoGroupBox = new System.Windows.Forms.GroupBox();
             this.logTabPage = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dracoUserControl = new Utilities.DracoUserControl();
+            //this.dracoUserControl = new Utilities.DracoUserControl();
             this.exporterTabControl.SuspendLayout();
             this.exportOptionsTabPage.SuspendLayout();
             this.exportOptionsScrollPanel.SuspendLayout();
             this.advancedTabPage.SuspendLayout();
-            this.dracoGroupBox.SuspendLayout();
+            //this.dracoGroupBox.SuspendLayout();
             this.logTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -375,13 +375,13 @@ namespace Max2Babylon
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
+            /*this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(7, 336);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(125, 12);
             this.label7.TabIndex = 33;
-            this.label7.Text = "Babylon PBR Options:";
+            this.label7.Text = "Babylon PBR Options:";*/
             // 
             // txtEnvironmentName
             // 
@@ -407,7 +407,7 @@ namespace Max2Babylon
             // 
             // chkFullPBR
             // 
-            this.chkFullPBR.AutoSize = true;
+            /*this.chkFullPBR.AutoSize = true;
             this.chkFullPBR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkFullPBR.Location = new System.Drawing.Point(14, 353);
             this.chkFullPBR.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -415,7 +415,7 @@ namespace Max2Babylon
             this.chkFullPBR.Size = new System.Drawing.Size(93, 16);
             this.chkFullPBR.TabIndex = 28;
             this.chkFullPBR.Text = "Use Full PBR";
-            this.chkFullPBR.UseVisualStyleBackColor = true;
+            this.chkFullPBR.UseVisualStyleBackColor = true;*/
             // 
             // btnEnvBrowse
             // 
@@ -568,7 +568,7 @@ namespace Max2Babylon
             // 
             // chkDracoCompression
             // 
-            this.chkDracoCompression.AutoSize = true;
+            /*this.chkDracoCompression.AutoSize = true;
             this.chkDracoCompression.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDracoCompression.Location = new System.Drawing.Point(162, 145);
             this.chkDracoCompression.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -578,7 +578,7 @@ namespace Max2Babylon
             this.chkDracoCompression.Text = "Use Draco compression";
             this.chkDracoCompression.UseVisualStyleBackColor = true;
             this.chkDracoCompression.CheckedChanged += new System.EventHandler(this.chkDracoCompression_CheckedChanged);
-            this.chkDracoCompression.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExporterForm_KeyDown);
+            this.chkDracoCompression.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExporterForm_KeyDown);*/
             // 
             // chkMergeAO
             // 
@@ -745,7 +745,7 @@ namespace Max2Babylon
             // 
             // butExportAndRun
             // 
-            this.butExportAndRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            /*this.butExportAndRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butExportAndRun.Enabled = false;
             this.butExportAndRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butExportAndRun.Location = new System.Drawing.Point(347, 542);
@@ -756,7 +756,7 @@ namespace Max2Babylon
             this.butExportAndRun.Text = "Export && Run";
             this.butExportAndRun.UseVisualStyleBackColor = true;
             this.butExportAndRun.Click += new System.EventHandler(this.butExportAndRun_Click);
-            this.butExportAndRun.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExporterForm_KeyDown);
+            this.butExportAndRun.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExporterForm_KeyDown);*/
             // 
             // butClose
             // 
@@ -774,11 +774,11 @@ namespace Max2Babylon
             // 
             // toolTipDracoCompression
             // 
-            this.toolTipDracoCompression.ShowAlways = true;
+            //this.toolTipDracoCompression.ShowAlways = true;
             // 
             // butMultiExport
             // 
-            this.butMultiExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            /*this.butMultiExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butMultiExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butMultiExport.Location = new System.Drawing.Point(544, 542);
             this.butMultiExport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -787,7 +787,7 @@ namespace Max2Babylon
             this.butMultiExport.TabIndex = 109;
             this.butMultiExport.Text = "Multi-File Export | Shift-click to edit";
             this.butMultiExport.UseVisualStyleBackColor = true;
-            this.butMultiExport.Click += new System.EventHandler(this.butMultiExport_Click);
+            this.butMultiExport.Click += new System.EventHandler(this.butMultiExport_Click);*/
             // 
             // saveOptionBtn
             // 
@@ -874,12 +874,12 @@ namespace Max2Babylon
             this.exportOptionsScrollPanel.Controls.Add(this.chkAutoSave);
             this.exportOptionsScrollPanel.Controls.Add(this.label8);
             this.exportOptionsScrollPanel.Controls.Add(this.chkOnlySelected);
-            this.exportOptionsScrollPanel.Controls.Add(this.label7);
+            //this.exportOptionsScrollPanel.Controls.Add(this.label7);
             this.exportOptionsScrollPanel.Controls.Add(this.txtEnvironmentName);
             this.exportOptionsScrollPanel.Controls.Add(this.txtScaleFactor);
             this.exportOptionsScrollPanel.Controls.Add(this.label6);
             this.exportOptionsScrollPanel.Controls.Add(this.label4);
-            this.exportOptionsScrollPanel.Controls.Add(this.chkFullPBR);
+            //this.exportOptionsScrollPanel.Controls.Add(this.chkFullPBR);
             this.exportOptionsScrollPanel.Controls.Add(this.chkExportTangents);
             this.exportOptionsScrollPanel.Controls.Add(this.btnEnvBrowse);
             this.exportOptionsScrollPanel.Controls.Add(this.chkExportMorphTangents);
@@ -892,7 +892,7 @@ namespace Max2Babylon
             this.exportOptionsScrollPanel.Controls.Add(this.btnTxtBrowse);
             this.exportOptionsScrollPanel.Controls.Add(this.chkMergeAO);
             this.exportOptionsScrollPanel.Controls.Add(this.chkExportMaterials);
-            this.exportOptionsScrollPanel.Controls.Add(this.chkDracoCompression);
+            //this.exportOptionsScrollPanel.Controls.Add(this.chkDracoCompression);
             this.exportOptionsScrollPanel.Controls.Add(this.chkKHRMaterialsUnlit);
             this.exportOptionsScrollPanel.Controls.Add(this.chkAnimgroupExportNonAnimated);
             this.exportOptionsScrollPanel.Controls.Add(this.chkKHRTextureTransform);
@@ -932,18 +932,18 @@ namespace Max2Babylon
             // 
             // advancedTabPage
             // 
-            this.advancedTabPage.Controls.Add(this.dracoGroupBox);
+            /*this.advancedTabPage.Controls.Add(this.dracoGroupBox);
             this.advancedTabPage.Location = new System.Drawing.Point(4, 22);
             this.advancedTabPage.Margin = new System.Windows.Forms.Padding(2);
             this.advancedTabPage.Name = "advancedTabPage";
             this.advancedTabPage.Size = new System.Drawing.Size(917, 423);
             this.advancedTabPage.TabIndex = 2;
             this.advancedTabPage.Text = "Advanced";
-            this.advancedTabPage.UseVisualStyleBackColor = true;
+            this.advancedTabPage.UseVisualStyleBackColor = true;*/
             // 
             // dracoGroupBox
             // 
-            this.dracoGroupBox.Controls.Add(this.dracoUserControl);
+            /*this.dracoGroupBox.Controls.Add(this.dracoUserControl);
             this.dracoGroupBox.Location = new System.Drawing.Point(10, 9);
             this.dracoGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.dracoGroupBox.Name = "dracoGroupBox";
@@ -951,7 +951,7 @@ namespace Max2Babylon
             this.dracoGroupBox.Size = new System.Drawing.Size(375, 338);
             this.dracoGroupBox.TabIndex = 0;
             this.dracoGroupBox.TabStop = false;
-            this.dracoGroupBox.Text = "Draco settings";
+            this.dracoGroupBox.Text = "Draco settings";*/
             // 
             // logTabPage
             // 
@@ -976,13 +976,13 @@ namespace Max2Babylon
             // 
             // dracoUserControl
             // 
-            this.dracoUserControl.AutoSize = true;
+            /*this.dracoUserControl.AutoSize = true;
             this.dracoUserControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.dracoUserControl.Location = new System.Drawing.Point(4, 15);
             this.dracoUserControl.Margin = new System.Windows.Forms.Padding(1);
             this.dracoUserControl.Name = "dracoUserControl";
             this.dracoUserControl.Size = new System.Drawing.Size(373, 327);
-            this.dracoUserControl.TabIndex = 0;
+            this.dracoUserControl.TabIndex = 0;*/
             // 
             // ExporterForm
             // 
@@ -992,8 +992,8 @@ namespace Max2Babylon
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exporterTabControl);
             this.Controls.Add(this.saveOptionBtn);
-            this.Controls.Add(this.butMultiExport);
-            this.Controls.Add(this.butExportAndRun);
+            //this.Controls.Add(this.butMultiExport);
+            //this.Controls.Add(this.butExportAndRun);
             this.Controls.Add(this.butClose);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.progressBar);
@@ -1013,8 +1013,8 @@ namespace Max2Babylon
             this.exportOptionsScrollPanel.ResumeLayout(false);
             this.exportOptionsScrollPanel.PerformLayout();
             this.advancedTabPage.ResumeLayout(false);
-            this.dracoGroupBox.ResumeLayout(false);
-            this.dracoGroupBox.PerformLayout();
+            //this.dracoGroupBox.ResumeLayout(false);
+            //this.dracoGroupBox.PerformLayout();
             this.logTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -1035,7 +1035,7 @@ namespace Max2Babylon
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkHidden;
         private System.Windows.Forms.CheckBox chkAutoSave;
-        private System.Windows.Forms.Button butExportAndRun;
+        //private System.Windows.Forms.Button butExportAndRun;
         private System.Windows.Forms.CheckBox chkOnlySelected;
         private System.Windows.Forms.Button butClose;
         private System.Windows.Forms.ComboBox comboOutputFormat;
@@ -1046,10 +1046,10 @@ namespace Max2Babylon
         private System.Windows.Forms.Label labelQuality;
         private System.Windows.Forms.TextBox txtQuality;
         private System.Windows.Forms.CheckBox chkMergeAO;
-        private System.Windows.Forms.CheckBox chkDracoCompression;
-        private System.Windows.Forms.ToolTip toolTipDracoCompression;
+        //private System.Windows.Forms.CheckBox chkDracoCompression;
+        //private System.Windows.Forms.ToolTip toolTipDracoCompression;
         private System.Windows.Forms.CheckBox chkOverwriteTextures;
-        private System.Windows.Forms.Button butMultiExport;
+        //private System.Windows.Forms.Button butMultiExport;
         private System.Windows.Forms.CheckBox chkKHRLightsPunctual;
         private System.Windows.Forms.CheckBox chkKHRTextureTransform;
         private System.Windows.Forms.CheckBox chkKHRMaterialsUnlit;
@@ -1059,10 +1059,10 @@ namespace Max2Babylon
         private System.Windows.Forms.RichTextBox txtTexturesPath;
         private System.Windows.Forms.Button btnTxtBrowse;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label7;
+        //private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RichTextBox txtEnvironmentName;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox chkFullPBR;
+        //private System.Windows.Forms.CheckBox chkFullPBR;
         private System.Windows.Forms.Button btnEnvBrowse;
         private System.Windows.Forms.CheckBox chkNoAutoLight;
         private System.Windows.Forms.CheckBox chkWriteTextures;
@@ -1092,7 +1092,7 @@ namespace Max2Babylon
         private System.Windows.Forms.CheckBox chkUseClone;
 
         private System.Windows.Forms.TabPage advancedTabPage;
-        private System.Windows.Forms.GroupBox dracoGroupBox;
-        private Utilities.DracoUserControl dracoUserControl;
+        //private System.Windows.Forms.GroupBox dracoGroupBox;
+        //private Utilities.DracoUserControl dracoUserControl;
     }
 }

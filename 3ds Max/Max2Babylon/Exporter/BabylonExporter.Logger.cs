@@ -19,8 +19,8 @@ namespace Max2Babylon
 
         // TODO - Update log level for release
         //.NL.Cambiato il livello di logging da MESSAGE a VERBOSE
-        public LogLevel logLevel = LogLevel.MESSAGE;
-        //public LogLevel logLevel = LogLevel.VERBOSE;
+        //public LogLevel logLevel = LogLevel.MESSAGE;
+        public LogLevel logLevel = LogLevel.VERBOSE;
 
         public event Action<int> OnExportProgressChanged;
         public event Action<string, int> OnError;
@@ -192,14 +192,20 @@ namespace Max2Babylon
         /// <param name="otherIndex"></param>
         public void getGroupedProperty(IIPropertyContainer propertyContainer, Dictionary<string, object> metadata, int mainIndex, int[] otherIndex)
         {
-            if (metadata == null || propertyContainer == null)
+            if (propertyContainer == null)
                 return;
 
             var prop = propertyContainer.GetProperty(mainIndex);
 
             if (isPropValued(prop))
             {
+                //Se è null, lo inizializziamo
+                if (metadata == null)
+                    metadata = new Dictionary<string, object>();
+
                 var value = getPropertyValue(prop);
+
+                RaiseVerbose("Property group: " + prop.Name + " -> " + value, 2);
 
                 if (!metadata.ContainsKey(prop.Name))
                     metadata.Add(prop.Name, value);

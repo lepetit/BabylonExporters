@@ -53,7 +53,7 @@ namespace Max2Babylon
 
         public override string DescriptionText
         {
-            get { return "Babylon - Generate a babylon.js scene file2"; }
+            get { return "VRMUR - Generate a VRMUR scene file2"; }
         }
 
         public override string CategoryText

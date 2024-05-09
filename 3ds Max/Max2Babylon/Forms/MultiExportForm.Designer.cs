@@ -64,12 +64,12 @@ namespace Max2Babylon
             warningLabel.Dock = System.Windows.Forms.DockStyle.Left;
             warningLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             warningLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            warningLabel.Location = new System.Drawing.Point(3, 3);
-            warningLabel.Margin = new System.Windows.Forms.Padding(3);
+            warningLabel.Location = new System.Drawing.Point(4, 4);
+            warningLabel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             warningLabel.Name = "warningLabel";
-            warningLabel.Padding = new System.Windows.Forms.Padding(3);
+            warningLabel.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             tableLayoutPanel1.SetRowSpan(warningLabel, 2);
-            warningLabel.Size = new System.Drawing.Size(431, 74);
+            warningLabel.Size = new System.Drawing.Size(573, 95);
             warningLabel.TabIndex = 10;
             warningLabel.Text = resources.GetString("warningLabel.Text");
             // 
@@ -85,12 +85,13 @@ namespace Max2Babylon
             tableLayoutPanel1.Controls.Add(panel2, 1, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            tableLayoutPanel1.Location = new System.Drawing.Point(3, 258);
+            tableLayoutPanel1.Location = new System.Drawing.Point(4, 313);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(927, 80);
+            tableLayoutPanel1.Size = new System.Drawing.Size(1236, 103);
             tableLayoutPanel1.TabIndex = 12;
             // 
             // panel_buttons
@@ -100,22 +101,24 @@ namespace Max2Babylon
             panel_buttons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panel_buttons.Controls.Add(this.btn_accept);
             panel_buttons.Controls.Add(this.btn_cancel);
-            panel_buttons.Location = new System.Drawing.Point(678, 43);
-            panel_buttons.MinimumSize = new System.Drawing.Size(94, 34);
+            panel_buttons.Location = new System.Drawing.Point(904, 57);
+            panel_buttons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            panel_buttons.MinimumSize = new System.Drawing.Size(125, 42);
             panel_buttons.Name = "panel_buttons";
-            panel_buttons.Padding = new System.Windows.Forms.Padding(3);
-            panel_buttons.Size = new System.Drawing.Size(246, 34);
+            panel_buttons.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            panel_buttons.Size = new System.Drawing.Size(328, 42);
             panel_buttons.TabIndex = 9;
             // 
             // btn_accept
             // 
             this.btn_accept.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btn_accept.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_accept.Location = new System.Drawing.Point(3, 3);
-            this.btn_accept.MaximumSize = new System.Drawing.Size(120, 27);
-            this.btn_accept.MinimumSize = new System.Drawing.Size(120, 27);
+            this.btn_accept.Location = new System.Drawing.Point(4, 4);
+            this.btn_accept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_accept.MaximumSize = new System.Drawing.Size(160, 33);
+            this.btn_accept.MinimumSize = new System.Drawing.Size(160, 33);
             this.btn_accept.Name = "btn_accept";
-            this.btn_accept.Size = new System.Drawing.Size(120, 27);
+            this.btn_accept.Size = new System.Drawing.Size(160, 33);
             this.btn_accept.TabIndex = 7;
             this.btn_accept.Text = "Accept";
             this.btn_accept.UseVisualStyleBackColor = true;
@@ -125,11 +128,12 @@ namespace Max2Babylon
             // 
             this.btn_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_cancel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_cancel.Location = new System.Drawing.Point(123, 3);
-            this.btn_cancel.MaximumSize = new System.Drawing.Size(120, 27);
-            this.btn_cancel.MinimumSize = new System.Drawing.Size(120, 27);
+            this.btn_cancel.Location = new System.Drawing.Point(164, 4);
+            this.btn_cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_cancel.MaximumSize = new System.Drawing.Size(160, 33);
+            this.btn_cancel.MinimumSize = new System.Drawing.Size(160, 33);
             this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(120, 27);
+            this.btn_cancel.Size = new System.Drawing.Size(160, 33);
             this.btn_cancel.TabIndex = 6;
             this.btn_cancel.Text = "Cancel";
             this.btn_cancel.UseVisualStyleBackColor = true;
@@ -141,11 +145,12 @@ namespace Max2Babylon
             panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panel2.Controls.Add(this.btn_change_path);
             panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            panel2.Location = new System.Drawing.Point(440, 3);
-            panel2.MinimumSize = new System.Drawing.Size(94, 34);
+            panel2.Location = new System.Drawing.Point(585, 4);
+            panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            panel2.MinimumSize = new System.Drawing.Size(125, 42);
             panel2.Name = "panel2";
-            panel2.Padding = new System.Windows.Forms.Padding(3);
-            panel2.Size = new System.Drawing.Size(484, 34);
+            panel2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            panel2.Size = new System.Drawing.Size(647, 42);
             panel2.TabIndex = 10;
             // 
             // btn_change_path
@@ -153,9 +158,10 @@ namespace Max2Babylon
             this.btn_change_path.AutoSize = true;
             this.btn_change_path.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btn_change_path.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_change_path.Location = new System.Drawing.Point(323, 3);
+            this.btn_change_path.Location = new System.Drawing.Point(449, 4);
+            this.btn_change_path.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_change_path.Name = "btn_change_path";
-            this.btn_change_path.Size = new System.Drawing.Size(158, 28);
+            this.btn_change_path.Size = new System.Drawing.Size(194, 34);
             this.btn_change_path.TabIndex = 7;
             this.btn_change_path.Text = "Change Selected Item Path(s)";
             this.btn_change_path.UseVisualStyleBackColor = true;
@@ -167,9 +173,10 @@ namespace Max2Babylon
             this.panel1.Controls.Add(tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(933, 341);
+            this.panel1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Size = new System.Drawing.Size(1244, 420);
             this.panel1.TabIndex = 0;
             // 
             // ExportItemGridView
@@ -189,11 +196,12 @@ namespace Max2Babylon
             this.ColumnFilePath,
             this.ColumnTexturesFolder});
             this.ExportItemGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ExportItemGridView.Location = new System.Drawing.Point(3, 3);
+            this.ExportItemGridView.Location = new System.Drawing.Point(4, 4);
+            this.ExportItemGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ExportItemGridView.Name = "ExportItemGridView";
             this.ExportItemGridView.RowHeadersWidth = 27;
             this.ExportItemGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.ExportItemGridView.Size = new System.Drawing.Size(927, 255);
+            this.ExportItemGridView.Size = new System.Drawing.Size(1236, 309);
             this.ExportItemGridView.TabIndex = 8;
             this.ExportItemGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ExportItemGridView_CellContentClick);
             this.ExportItemGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ExportItemGridView_CellDoubleClick);
@@ -205,22 +213,25 @@ namespace Max2Babylon
             // 
             this.ColumnExportCheckbox.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.ColumnExportCheckbox.HeaderText = "Export?";
+            this.ColumnExportCheckbox.MinimumWidth = 6;
             this.ColumnExportCheckbox.Name = "ColumnExportCheckbox";
             this.ColumnExportCheckbox.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnExportCheckbox.Width = 49;
+            this.ColumnExportCheckbox.Width = 58;
             // 
             // ColumnKeepPositionCheckbox
             // 
             this.ColumnKeepPositionCheckbox.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.ColumnKeepPositionCheckbox.HeaderText = "Keep Pos";
+            this.ColumnKeepPositionCheckbox.MinimumWidth = 6;
             this.ColumnKeepPositionCheckbox.Name = "ColumnKeepPositionCheckbox";
             this.ColumnKeepPositionCheckbox.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnKeepPositionCheckbox.Width = 49;
+            this.ColumnKeepPositionCheckbox.Width = 72;
             // 
             // ColumnLayers
             // 
             this.ColumnLayers.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColumnLayers.HeaderText = "Layers";
+            this.ColumnLayers.MinimumWidth = 6;
             this.ColumnLayers.Name = "ColumnLayers";
             this.ColumnLayers.ReadOnly = true;
             // 
@@ -228,6 +239,7 @@ namespace Max2Babylon
             // 
             this.ColumnNode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColumnNode.HeaderText = "Root node";
+            this.ColumnNode.MinimumWidth = 6;
             this.ColumnNode.Name = "ColumnNode";
             this.ColumnNode.ReadOnly = true;
             // 
@@ -235,12 +247,14 @@ namespace Max2Babylon
             // 
             this.ColumnFilePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColumnFilePath.HeaderText = "File path";
+            this.ColumnFilePath.MinimumWidth = 6;
             this.ColumnFilePath.Name = "ColumnFilePath";
             // 
             // ColumnTexturesFolder
             // 
             this.ColumnTexturesFolder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColumnTexturesFolder.HeaderText = "Textures folder";
+            this.ColumnTexturesFolder.MinimumWidth = 6;
             this.ColumnTexturesFolder.Name = "ColumnTexturesFolder";
             // 
             // SetPathFileDialog
@@ -254,12 +268,13 @@ namespace Max2Babylon
             // MultiExportForm
             // 
             this.AcceptButton = this.btn_accept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_cancel;
-            this.ClientSize = new System.Drawing.Size(933, 341);
+            this.ClientSize = new System.Drawing.Size(1244, 420);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MultiExportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Multi-File Export";

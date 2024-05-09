@@ -327,14 +327,14 @@ namespace Max2Babylon
             var outputBabylonDirectory = tempOutputDirectory;
 
             // Force output file extension to be babylon
-            outputFileName = Path.ChangeExtension(outputFileName, "babylon");
+            //outputFileName = Path.ChangeExtension(outputFileName, "babylon");
 
             var babylonScene = new BabylonScene(outputBabylonDirectory);
 
             var rawScene = Loader.Core.RootNode;
 
             string outputFormat = exportParameters.outputFormat;
-            isBabylonExported = outputFormat == "babylon" || outputFormat == "binary babylon";
+            //isBabylonExported = outputFormat == "babylon" || outputFormat == "binary babylon";
             isGltfExported = outputFormat == "gltf" || outputFormat == "glb";
 
             // Save scene
@@ -788,13 +788,13 @@ namespace Max2Babylon
                 }
 
                 // Binary
-                if (outputFormat == "binary babylon")
+                /*if (outputFormat == "binary babylon")
                 {
                     RaiseMessage("Generating binary files");
                     BabylonFileConverter.BinaryConverter.Convert(outputFile, outputBabylonDirectory + "\\Binary",
                         message => RaiseMessage(message, 1),
                         error => RaiseError(error, 1));
-                }
+                }*/
             }
 
             ReportProgressChanged(100);
@@ -810,7 +810,7 @@ namespace Max2Babylon
             }
             // Move files to output directory
             var filePaths = Directory.GetFiles(tempOutputDirectory);
-            if (outputFormat == "binary babylon")
+            /*if (outputFormat == "binary babylon")
             {
                 var tempBinaryOutputDirectory = Path.Combine(tempOutputDirectory, "Binary");
                 var binaryFilePaths = Directory.GetFiles(tempBinaryOutputDirectory);
@@ -839,7 +839,7 @@ namespace Max2Babylon
                         Loader.Global.BroadcastNotification(SystemNotificationCode.PostExport, maxNotification);
                     }
                 }
-            }
+            }*/
             if (outputFormat == "glb")
             {
                 foreach (var file_path in filePaths)

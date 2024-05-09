@@ -822,19 +822,23 @@ namespace Max2Babylon
             // List all babylon material attributes
             // Those attributes are currently stored into the native material
             // They should not be exported as extra attributes
-            List<string> excludeAttributes = new List<string>();
-            excludeAttributes.Add("babylonUnlit");
-            excludeAttributes.Add("babylonBackfaceCulling");
-            excludeAttributes.Add("babylonMaxSimultaneousLights");
-            excludeAttributes.Add("babylonTransparencyMode");
-            excludeAttributes.Add("babylonUseFactors");
-            excludeAttributes.Add("babylonDirectIntensity");
-            excludeAttributes.Add("babylonEmissiveIntensity");
-            excludeAttributes.Add("babylonEnvironmentIntensity");
-            excludeAttributes.Add("babylonSpecularIntensity");
+            List<string> excludeAttributes = new List<string>
+            {
+                "babylonUnlit",
+                "babylonBackfaceCulling",
+                "babylonMaxSimultaneousLights",
+                "babylonTransparencyMode",
+                "babylonUseFactors",
+                "babylonDirectIntensity",
+                "babylonEmissiveIntensity",
+                "babylonEnvironmentIntensity",
+                "babylonSpecularIntensity"
+            };
 
             // Export the custom attributes of this material
             babylonMaterial.metadata = ExportExtraAttributes(materialNode, babylonScene, excludeAttributes);
+
+            RaiseVerbose("GroupedProperty: " + (babylonMaterial.metadata != null), 2);
 
             //TODO - aggiungere le schifezze            
             getGroupedProperty(propertyContainer, babylonMaterial.metadata, 9, new int[] { 10, 11, 12 });                           //Brdf mode

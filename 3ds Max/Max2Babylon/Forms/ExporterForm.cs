@@ -87,7 +87,7 @@ namespace Max2Babylon
             Tools.PrepareTextBox(txtScaleFactor, Loader.Core.RootNode, "babylonjs_txtScaleFactor", "1");
             Tools.PrepareTextBox(txtQuality, Loader.Core.RootNode, "babylonjs_txtCompression", "100");
             Tools.PrepareCheckBox(chkMergeAO, Loader.Core.RootNode, "babylonjs_mergeAOwithMR", 1);
-            Tools.PrepareCheckBox(chkDracoCompression, Loader.Core.RootNode, "babylonjs_dracoCompression", 0);
+            //Tools.PrepareCheckBox(chkDracoCompression, Loader.Core.RootNode, "babylonjs_dracoCompression", 0);
             Tools.PrepareCheckBox(chkKHRLightsPunctual, Loader.Core.RootNode, "babylonjs_khrLightsPunctual");
             Tools.PrepareCheckBox(chkKHRTextureTransform, Loader.Core.RootNode, "babylonjs_khrTextureTransform");
             Tools.PrepareCheckBox(chkAnimgroupExportNonAnimated, Loader.Core.RootNode, "babylonjs_animgroupexportnonanimated");
@@ -104,12 +104,12 @@ namespace Max2Babylon
 
             if (comboOutputFormat.SelectedText == "babylon" || comboOutputFormat.SelectedText == "binary babylon" || !gltfPipelineInstalled)
             {
-                chkDracoCompression.Checked = false;
-                chkDracoCompression.Enabled = false;
+                //chkDracoCompression.Checked = false;
+                //chkDracoCompression.Enabled = false;
             }
 
 
-            Tools.PrepareCheckBox(chkFullPBR, Loader.Core.RootNode, ExportParameters.PBRFullPropertyName);
+            //Tools.PrepareCheckBox(chkFullPBR, Loader.Core.RootNode, ExportParameters.PBRFullPropertyName);
             Tools.PrepareCheckBox(chkNoAutoLight, Loader.Core.RootNode, ExportParameters.PBRNoLightPropertyName);
             string storedEnvironmentPath = Loader.Core.RootNode.GetStringProperty(ExportParameters.PBREnvironmentPathPropertyName, string.Empty);
             string absoluteEnvironmentPath = Tools.ResolveRelativePath(storedEnvironmentPath);
@@ -124,13 +124,13 @@ namespace Max2Babylon
 
 
             #region prepare draco            
-            LoadDracoOptions();
+            /*LoadDracoOptions();
             dracoUserControl.UpdateValueLabels(); // force value label to be updated
-            dracoGroupBox.Enabled = chkDracoCompression.Enabled && chkDracoCompression.Checked;
+            dracoGroupBox.Enabled = chkDracoCompression.Enabled && chkDracoCompression.Checked;*/
             #endregion
         }
 
-        private void LoadDracoOptions()
+        /*private void LoadDracoOptions()
         {
             Tools.PrepareNumericUpDown(dracoUserControl.CompressionLevelNumericUpDown, Loader.Core.RootNode, $"babylonjs_{DracoParameters.compressionLevel_param_name}", DracoParameters.compressionLevel_default);
             Tools.PrepareTrackBar(dracoUserControl.QPositionTrackBar, Loader.Core.RootNode, $"babylonjs_{DracoParameters.quantizePositionBits_param_name}", DracoParameters.quantizePositionBits_default);
@@ -139,7 +139,7 @@ namespace Max2Babylon
             Tools.PrepareTrackBar(dracoUserControl.QColorTrackBar, Loader.Core.RootNode, $"babylonjs_{DracoParameters.quantizeColorBits_param_name}", DracoParameters.quantizeColorBits_default);
             Tools.PrepareTrackBar(dracoUserControl.QGenericTrackBar, Loader.Core.RootNode, $"babylonjs_{DracoParameters.quantizeGenericBits_param_name}", DracoParameters.quantizeGenericBits_default);
             Tools.PrepareCheckBox(dracoUserControl.UnifiedCheckBox, Loader.Core.RootNode, $"babylonjs_{DracoParameters.unifiedQuantization_param_name}", DracoParameters.unifiedQuantization_default?1:0);
-        }
+        }*/
 
         private void ExporterForm_Load(object sender, EventArgs e)
         {
@@ -319,7 +319,7 @@ namespace Max2Babylon
             Tools.UpdateTextBox(txtScaleFactor, Loader.Core.RootNode, "babylonjs_txtScaleFactor");
             Tools.UpdateTextBox(txtQuality, Loader.Core.RootNode, "babylonjs_txtCompression");
             Tools.UpdateCheckBox(chkMergeAO, Loader.Core.RootNode, "babylonjs_mergeAOwithMR");
-            Tools.UpdateCheckBox(chkDracoCompression, Loader.Core.RootNode, "babylonjs_dracoCompression");
+            //Tools.UpdateCheckBox(chkDracoCompression, Loader.Core.RootNode, "babylonjs_dracoCompression");
             Tools.UpdateCheckBox(chkKHRTextureTransform, Loader.Core.RootNode, "babylonjs_khrTextureTransform");
             Tools.UpdateCheckBox(chkKHRLightsPunctual, Loader.Core.RootNode, "babylonjs_khrLightsPunctual");
             Tools.UpdateCheckBox(chkKHRMaterialsUnlit, Loader.Core.RootNode, "babylonjs_khr_materials_unlit");
@@ -337,7 +337,7 @@ namespace Max2Babylon
             Loader.Core.RootNode.SetStringProperty(ExportParameters.ModelFilePathProperty, Tools.RelativePathStore(txtModelPath.Text));
             Loader.Core.RootNode.SetStringProperty(ExportParameters.TextureFolderPathProperty, Tools.RelativePathStore(txtTexturesPath.Text));
 
-            Tools.UpdateCheckBox(chkFullPBR, Loader.Core.RootNode, ExportParameters.PBRFullPropertyName);
+            //Tools.UpdateCheckBox(chkFullPBR, Loader.Core.RootNode, ExportParameters.PBRFullPropertyName);
             Tools.UpdateCheckBox(chkNoAutoLight, Loader.Core.RootNode, ExportParameters.PBRNoLightPropertyName);
             Loader.Core.RootNode.SetStringProperty(ExportParameters.PBREnvironmentPathPropertyName, Tools.RelativePathStore(txtEnvironmentName.Text));
 
@@ -346,10 +346,10 @@ namespace Max2Babylon
             Tools.UpdateCheckBox(chkMrgContainersAndXref, Loader.Core.RootNode, "babylonjs_mergecontainersandxref");
             Tools.UpdateCheckBox(chkTryReuseTexture, Loader.Core.RootNode, "babylonjs_tryReuseTexture");
 
-            SaveDracoOptions();
+            //SaveDracoOptions();
         }
 
-        private void SaveDracoOptions()
+        /*private void SaveDracoOptions()
         {
             Tools.UpdateNumericUpDown(dracoUserControl.CompressionLevelNumericUpDown, Loader.Core.RootNode, $"babylonjs_{DracoParameters.compressionLevel_param_name}");
             Tools.UpdateTrackBar(dracoUserControl.QPositionTrackBar, Loader.Core.RootNode, $"babylonjs_{DracoParameters.quantizePositionBits_param_name}");
@@ -358,7 +358,7 @@ namespace Max2Babylon
             Tools.UpdateTrackBar(dracoUserControl.QColorTrackBar, Loader.Core.RootNode, $"babylonjs_{DracoParameters.quantizeColorBits_param_name}");
             Tools.UpdateTrackBar(dracoUserControl.QGenericTrackBar, Loader.Core.RootNode, $"babylonjs_{DracoParameters.quantizeGenericBits_param_name}");
             Tools.UpdateCheckBox(dracoUserControl.UnifiedCheckBox, Loader.Core.RootNode, $"babylonjs_{DracoParameters.unifiedQuantization_param_name}");
-        }
+        }*/
 
 
         private async Task<bool> DoExport(ExportItem exportItem, bool multiExport = false, bool clearLogs = true)
@@ -426,8 +426,8 @@ namespace Max2Babylon
 
             // disable UI controls during export.
             butExport.Enabled = false;
-            butExportAndRun.Enabled = false;
-            butMultiExport.Enabled = false;
+            //butExportAndRun.Enabled = false;
+            //butMultiExport.Enabled = false;
             butCancel.Enabled = true;
 
             // switch to the log tab.
@@ -477,7 +477,7 @@ namespace Max2Babylon
                     txtQuality = textureQualityParsed,
                     mergeAO = chkMergeAO.Checked,
                     bakeAnimationType = (BakeAnimationType)cmbBakeAnimationOptions.SelectedIndex,
-                    dracoCompression = chkDracoCompression.Enabled && chkDracoCompression.Checked,
+                    //dracoCompression = chkDracoCompression.Enabled && chkDracoCompression.Checked,
                     enableKHRLightsPunctual = chkKHRLightsPunctual.Checked,
                     enableKHRTextureTransform = chkKHRTextureTransform.Checked,
                     enableKHRMaterialsUnlit = chkKHRMaterialsUnlit.Checked,
@@ -490,7 +490,7 @@ namespace Max2Babylon
                     exportKeepNodePosition = exportItem?.KeepPosition??false,
                     exportLayers = exportItem?.Layers,
                     pbrNoLight = chkNoAutoLight.Checked,
-                    pbrFull = chkFullPBR.Checked,
+                    //pbrFull = chkFullPBR.Checked,
                     pbrEnvironment = txtEnvironmentName.Text,
                     usePreExportProcess = chkUsePreExportProces.Checked,
                     flattenScene = chkFlatten.Checked,
@@ -500,7 +500,7 @@ namespace Max2Babylon
                     useClone = chkUseClone.Checked
                 };
 
-                if (exportParameters.dracoCompression)
+                /*if (exportParameters.dracoCompression)
                 {
                     exportParameters.dracoParams = new DracoParameters()
                     {
@@ -511,8 +511,8 @@ namespace Max2Babylon
                         quantizeColorBits = dracoUserControl.QColorTrackBar.Value,
                         quantizeGenericBits = dracoUserControl.QGenericTrackBar.Value,
                         unifiedQuantization = dracoUserControl.UnifiedCheckBox.Checked
-                    }; 
-                }
+                    };
+                }*/
 
                 exporter.callerForm = this;
 
@@ -540,8 +540,8 @@ namespace Max2Babylon
 
             butCancel.Enabled = false;
             butExport.Enabled = true;
-            butMultiExport.Enabled = true;
-            butExportAndRun.Enabled = WebServer.IsSupported;
+            //butMultiExport.Enabled = true;
+            //butExportAndRun.Enabled = WebServer.IsSupported;
 
             BringToFront();
 
@@ -662,7 +662,7 @@ namespace Max2Babylon
         private void txtFilename_TextChanged(object sender, EventArgs e)
         {
             butExport.Enabled = !string.IsNullOrEmpty(txtModelPath.Text.Trim());
-            butExportAndRun.Enabled = butExport.Enabled && WebServer.IsSupported;
+            //butExportAndRun.Enabled = butExport.Enabled && WebServer.IsSupported;
         }
 
         private void butCancel_Click(object sender, EventArgs e)
@@ -730,7 +730,7 @@ namespace Max2Babylon
             var outputFormat = comboOutputFormat.SelectedItem.ToString();
             switch (outputFormat)
             {
-                case "babylon":
+                /*case "babylon":
                 case "binary babylon":
                     this.saveFileDialog.DefaultExt = "babylon";
                     this.saveFileDialog.Filter = "Babylon files|*.babylon";
@@ -748,18 +748,18 @@ namespace Max2Babylon
                     chkKHRMaterialsUnlit.Enabled = false;
                     chkKHRLightsPunctual.Enabled = false;
                     chkKHRTextureTransform.Enabled = false;
-                    break;
+                    break;*/
                 case "gltf":
                     this.saveFileDialog.DefaultExt = "gltf";
                     this.saveFileDialog.Filter = "glTF files|*.gltf";
-                    chkDracoCompression.Enabled = gltfPipelineInstalled;
+                    //chkDracoCompression.Enabled = gltfPipelineInstalled;
                     chkWriteTextures.Enabled = true;
                     chkOverwriteTextures.Enabled = true;
                     txtTexturesPath.Enabled = true;
                     textureLabel.Enabled = true;
                     btnTxtBrowse.Enabled = true;
-                    chkFullPBR.Enabled = false;
-                    chkFullPBR.Checked = false;
+                    //chkFullPBR.Enabled = false;
+                    //chkFullPBR.Checked = false;
                     btnEnvBrowse.Enabled = false;
                     txtEnvironmentName.Enabled = false;
                     txtEnvironmentName.Text = string.Empty;
@@ -770,7 +770,7 @@ namespace Max2Babylon
                 case "glb":
                     this.saveFileDialog.DefaultExt = "glb";
                     this.saveFileDialog.Filter = "glb files|*.glb";
-                    chkDracoCompression.Enabled = gltfPipelineInstalled;
+                    //chkDracoCompression.Enabled = gltfPipelineInstalled;
                     chkWriteTextures.Checked = true;
                     chkWriteTextures.Enabled = false;
                     chkOverwriteTextures.Checked = true;
@@ -779,8 +779,8 @@ namespace Max2Babylon
                     txtTexturesPath.Enabled = false;
                     textureLabel.Enabled = false;
                     btnTxtBrowse.Enabled = false;
-                    chkFullPBR.Enabled = false;
-                    chkFullPBR.Checked = false;
+                    //chkFullPBR.Enabled = false;
+                    //chkFullPBR.Checked = false;
                     btnEnvBrowse.Enabled = false;
                     txtEnvironmentName.Enabled = false;
                     txtEnvironmentName.Text = string.Empty;
@@ -790,7 +790,7 @@ namespace Max2Babylon
                     break;
             }
 
-            dracoGroupBox.Enabled = chkDracoCompression.Enabled && chkDracoCompression.Checked;
+            //dracoGroupBox.Enabled = chkDracoCompression.Enabled && chkDracoCompression.Checked;
 
             string newModelPath = Path.ChangeExtension(txtModelPath.Text, this.saveFileDialog.DefaultExt);
             this.txtModelPath.MaxPath(newModelPath);
@@ -804,7 +804,7 @@ namespace Max2Babylon
         bool IsShown = false;
         private void exportOptionsScrollPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            Control ctrl = exportOptionsScrollPanel.GetChildAtPoint(e.Location);
+            /*Control ctrl = exportOptionsScrollPanel.GetChildAtPoint(e.Location);
 
             if (ctrl != null)
             {
@@ -819,7 +819,7 @@ namespace Max2Babylon
             {
                 toolTipDracoCompression.Hide(chkDracoCompression);
                 IsShown = false;
-            }
+            }*/
         }
 
         /// <summary>
@@ -897,9 +897,9 @@ namespace Max2Babylon
             }
         }
 
-        private void chkDracoCompression_CheckedChanged(object sender, EventArgs e)
+        /*private void chkDracoCompression_CheckedChanged(object sender, EventArgs e)
         {
             dracoGroupBox.Enabled = chkDracoCompression.Checked;
-        }
+        }*/
     }
 }

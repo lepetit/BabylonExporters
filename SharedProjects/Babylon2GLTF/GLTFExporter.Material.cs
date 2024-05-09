@@ -759,68 +759,71 @@ namespace Babylon2GLTF
                     gltfMaterial.extras = babylonMaterial.metadata;
                 }
 
-                logger.RaiseVerbose("metadata: " + babylonMaterial.metadata.Count);
-                foreach (KeyValuePair<string, object> item in babylonMaterial.metadata)
+                if (babylonMaterial.metadata != null)
                 {
-                    logger.RaiseVerbose(item.Key + ": " + item.Value);
-                }
-
-                logger.RaiseVerbose("extensionsUsed: " + gltf.extensionsUsed);
-
-                //.NL.METADATA - QUA LI USO  
-                if (babylonMaterial.metadata.ContainsKey("trans_ior"))
-                {
-                    var data = babylonMaterial.metadata["trans_ior"];
-                    float[] floatArray = data as float[];
-
-                    var ext = new KHR_materials_ior()
+                    logger.RaiseVerbose("metadata: " + babylonMaterial.metadata.Count);
+                    foreach (KeyValuePair<string, object> item in babylonMaterial.metadata)
                     {
-                        ior = floatArray[0]
-                    };
-                    gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
-                    gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_ior", ext);
-                    logger.RaiseVerbose("Ior" + ext.ior);
-                }
-
-                if (babylonMaterial.metadata.ContainsKey("transparency"))
-                {
-                    var data = babylonMaterial.metadata["transparency"];
-                    float[] floatArray = data as float[];
-
-                    var ext = new KHR_materials_transmission()
-                    {
-                        transmissionFactor = floatArray[0],
-                        transmissionTexture = null
-                    };
-                    gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
-                    gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_transmission", ext);
-                }
-
-                if (babylonMaterial.metadata.ContainsKey("sss_color"))
-                {
-                    var data = babylonMaterial.metadata["sss_color"];
-                    float[] float4 = data as float[];
-                    float[] sss_color = new float[3];
-                    Array.Copy(float4, sss_color, sss_color.Length);
-
-                    data = babylonMaterial.metadata["sss_depth"];
-                    float[] sss_depth = data as float[];
-
-                    data = babylonMaterial.metadata["sss_scale"];
-                    float[] sss_scale = data as float[];
-
-                    var ext = new KHR_materials_volume()
-                    {
-                        thicknessFactor = sss_depth[0],
-                        thicknessTexture = null,
-                        attenuationColor = sss_color
-                    };
-                    if (sss_scale[0] != 0 && sss_scale[0] != float.PositiveInfinity)
-                    {
-                        ext.attenuationDistance = sss_scale[0]; //??? Boh?
+                        logger.RaiseVerbose(item.Key + ": " + item.Value);
                     }
-                    gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
-                    gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_volume", ext);
+
+                    logger.RaiseVerbose("extensionsUsed: " + gltf.extensionsUsed);
+
+                    //.NL.METADATA - QUA LI USO  
+                    if (babylonMaterial.metadata.ContainsKey("trans_ior"))
+                    {
+                        var data = babylonMaterial.metadata["trans_ior"];
+                        float[] floatArray = data as float[];
+
+                        var ext = new KHR_materials_ior()
+                        {
+                            ior = floatArray[0]
+                        };
+                        gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
+                        gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_ior", ext);
+                        logger.RaiseVerbose("Ior" + ext.ior);
+                    }
+
+                    if (babylonMaterial.metadata.ContainsKey("transparency"))
+                    {
+                        var data = babylonMaterial.metadata["transparency"];
+                        float[] floatArray = data as float[];
+
+                        var ext = new KHR_materials_transmission()
+                        {
+                            transmissionFactor = floatArray[0],
+                            transmissionTexture = null
+                        };
+                        gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
+                        gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_transmission", ext);
+                    }
+
+                    if (babylonMaterial.metadata.ContainsKey("sss_color"))
+                    {
+                        var data = babylonMaterial.metadata["sss_color"];
+                        float[] float4 = data as float[];
+                        float[] sss_color = new float[3];
+                        Array.Copy(float4, sss_color, sss_color.Length);
+
+                        data = babylonMaterial.metadata["sss_depth"];
+                        float[] sss_depth = data as float[];
+
+                        data = babylonMaterial.metadata["sss_scale"];
+                        float[] sss_scale = data as float[];
+
+                        var ext = new KHR_materials_volume()
+                        {
+                            thicknessFactor = sss_depth[0],
+                            thicknessTexture = null,
+                            attenuationColor = sss_color
+                        };
+                        if (sss_scale[0] != 0 && sss_scale[0] != float.PositiveInfinity)
+                        {
+                            ext.attenuationDistance = sss_scale[0]; //??? Boh?
+                        }
+                        gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
+                        gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_volume", ext);
+                    }
                 }
 
                 // Alpha
