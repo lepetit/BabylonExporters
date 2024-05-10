@@ -93,7 +93,7 @@ namespace Max2Babylon
             this.exportOptionsScrollPanel = new System.Windows.Forms.Panel();
             this.chkUseClone = new System.Windows.Forms.CheckBox();
             this.chkTryReuseTexture = new System.Windows.Forms.CheckBox();
-            this.advancedTabPage = new System.Windows.Forms.TabPage();
+            //this.advancedTabPage = new System.Windows.Forms.TabPage();
             //this.dracoGroupBox = new System.Windows.Forms.GroupBox();
             this.logTabPage = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -101,7 +101,7 @@ namespace Max2Babylon
             this.exporterTabControl.SuspendLayout();
             this.exportOptionsTabPage.SuspendLayout();
             this.exportOptionsScrollPanel.SuspendLayout();
-            this.advancedTabPage.SuspendLayout();
+            //this.advancedTabPage.SuspendLayout();
             //this.dracoGroupBox.SuspendLayout();
             this.logTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -692,8 +692,8 @@ namespace Max2Babylon
             // 
             this.comboOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboOutputFormat.Items.AddRange(new object[] {
-            "babylon",
-            "binary babylon",
+            /*"babylon",
+            "binary babylon",*/
             "gltf",
             "glb"});
             this.comboOutputFormat.Location = new System.Drawing.Point(97, 3);
@@ -828,7 +828,7 @@ namespace Max2Babylon
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.exporterTabControl.Controls.Add(this.exportOptionsTabPage);
-            this.exporterTabControl.Controls.Add(this.advancedTabPage);
+            //this.exporterTabControl.Controls.Add(this.advancedTabPage);
             this.exporterTabControl.Controls.Add(this.logTabPage);
             this.exporterTabControl.Location = new System.Drawing.Point(2, 82);
             this.exporterTabControl.Name = "exporterTabControl";
@@ -1012,7 +1012,7 @@ namespace Max2Babylon
             this.exportOptionsTabPage.ResumeLayout(false);
             this.exportOptionsScrollPanel.ResumeLayout(false);
             this.exportOptionsScrollPanel.PerformLayout();
-            this.advancedTabPage.ResumeLayout(false);
+            //this.advancedTabPage.ResumeLayout(false);
             //this.dracoGroupBox.ResumeLayout(false);
             //this.dracoGroupBox.PerformLayout();
             this.logTabPage.ResumeLayout(false);
@@ -1091,7 +1091,7 @@ namespace Max2Babylon
 
         private System.Windows.Forms.CheckBox chkUseClone;
 
-        private System.Windows.Forms.TabPage advancedTabPage;
+        //private System.Windows.Forms.TabPage advancedTabPage;
         //private System.Windows.Forms.GroupBox dracoGroupBox;
         //private Utilities.DracoUserControl dracoUserControl;
     }

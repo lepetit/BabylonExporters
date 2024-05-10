@@ -1,4 +1,5 @@
 using Autodesk.Max;
+using BabylonExport.Entities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -181,8 +182,42 @@ namespace Max2Babylon
             }
         }
 
+
         /// <summary>
-        /// VRMUR - Export groupd values
+        /// VRMUR - Export the groups of values
+        /// 
+        /// Esporta nei metadati le proprietà valorizzate
+        /// </summary>
+        /// <param name="propertyContainer"></param>
+        /// <param name="babylonMaterial"></param>
+        private void getGroupedProperties(IIPropertyContainer propertyContainer, BabylonPBRMetallicRoughnessMaterial babylonMaterial)
+        {
+            if (propertyContainer == null)
+                return;
+
+            if (babylonMaterial.metadata == null)
+                babylonMaterial.metadata = new Dictionary<string, object>();
+
+            //Quelle commentate vengono già esportate come pbrMetallicRoughness
+            //getGroupedProperty(propertyContainer, babylonMaterial.metadata, 2, null);                         //base_color
+            //getGroupedProperty(propertyContainer, babylonMaterial.metadata, 4, new int[] { 5 });              //roughness
+            //getGroupedProperty(propertyContainer, babylonMaterial.metadata, 6, null);                         //metalness
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 3, null);                           //reflectivity
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 7, null);                           //refl_color
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 8, null);                           //diff_roughness
+
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 9, new int[] { 10, 11, 12 });                           //Brdf mode
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 13, new int[] { 14, 15, 16 });                          //Asinotropy
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 17, new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26 });  //Transparency
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 28, new int[] { 29, 30, 31, 32 });                      //Subsurface scattering
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 33, new int[] { 34, 35, 36 });                          //Emission
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 37, new int[] { 39, 39, 40, 41, 42, 43, 44, 45, 117 }); //Coating
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 46, new int[] { 47, 48 });                              //Sheen
+            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 49, new int[] { 50, 51 });                              //Thin Film
+        }
+
+        /// <summary>
+        /// VRMUR - Export a group values
         /// 
         /// Esporta tutti i metadati se quello di reiferimento è valorizzato
         /// </summary>
@@ -199,10 +234,6 @@ namespace Max2Babylon
 
             if (isPropValued(prop))
             {
-                //Se è null, lo inizializziamo
-                if (metadata == null)
-                    metadata = new Dictionary<string, object>();
-
                 var value = getPropertyValue(prop);
 
                 RaiseVerbose("Property group: " + prop.Name + " -> " + value, 2);
@@ -210,15 +241,18 @@ namespace Max2Babylon
                 if (!metadata.ContainsKey(prop.Name))
                     metadata.Add(prop.Name, value);
 
-                foreach (int idx in otherIndex)
+                if (otherIndex != null)
                 {
-                    prop = propertyContainer.GetProperty(idx);
-
-                    if (prop != null)
+                    foreach (int idx in otherIndex)
                     {
-                        value = getPropertyValue(prop);
-                        if (!metadata.ContainsKey(prop.Name))
-                            metadata.Add(prop.Name, value);
+                        prop = propertyContainer.GetProperty(idx);
+
+                        if (prop != null)
+                        {
+                            value = getPropertyValue(prop);
+                            if (!metadata.ContainsKey(prop.Name))
+                                metadata.Add(prop.Name, value);
+                        }
                     }
                 }
             }

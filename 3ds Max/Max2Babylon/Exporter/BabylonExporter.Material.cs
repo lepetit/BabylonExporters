@@ -838,17 +838,10 @@ namespace Max2Babylon
             // Export the custom attributes of this material
             babylonMaterial.metadata = ExportExtraAttributes(materialNode, babylonScene, excludeAttributes);
 
-            RaiseVerbose("GroupedProperty: " + (babylonMaterial.metadata != null), 2);
+            RaiseVerbose("GroupedProperty["+ babylonMaterial.name+ "]: " + (babylonMaterial.metadata != null), 2);
 
-            //TODO - aggiungere le schifezze            
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 9, new int[] { 10, 11, 12 });                           //Brdf mode
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 13, new int[] { 14, 15, 16 });                          //Asinotropy
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 17, new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26 });  //Transparency
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 28, new int[] { 29, 30, 31, 32 });                      //Subsurface scattering
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 33, new int[] { 34, 35 });                              //Emission
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 37, new int[] { 39, 39, 40, 41, 42, 43, 44, 45, 117 }); //Coating
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 46, new int[] { 47, 48 });                              //Sheen
-            getGroupedProperty(propertyContainer, babylonMaterial.metadata, 49, new int[] { 50, 51 });                              //Thin Film
+            // Export additional info 
+            getGroupedProperties(propertyContainer, babylonMaterial);
 
             babylonScene.MaterialsList.Add(babylonMaterial);
         }

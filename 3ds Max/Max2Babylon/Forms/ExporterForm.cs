@@ -83,7 +83,7 @@ namespace Max2Babylon
             Tools.PrepareCheckBox(chkAutoSave, Loader.Core.RootNode, "babylonjs_autosave", 0);
             Tools.PrepareCheckBox(chkOnlySelected, Loader.Core.RootNode, "babylonjs_onlySelected");
             Tools.PrepareCheckBox(chkExportTangents, Loader.Core.RootNode, "babylonjs_exporttangents");
-            Tools.PrepareComboBox(comboOutputFormat, Loader.Core.RootNode, "babylonjs_outputFormat", "babylon");
+            Tools.PrepareComboBox(comboOutputFormat, Loader.Core.RootNode, "babylonjs_outputFormat", "gltf");
             Tools.PrepareTextBox(txtScaleFactor, Loader.Core.RootNode, "babylonjs_txtScaleFactor", "1");
             Tools.PrepareTextBox(txtQuality, Loader.Core.RootNode, "babylonjs_txtCompression", "100");
             Tools.PrepareCheckBox(chkMergeAO, Loader.Core.RootNode, "babylonjs_mergeAOwithMR", 1);
@@ -102,11 +102,11 @@ namespace Max2Babylon
             Tools.PrepareComboBox(cmbBakeAnimationOptions, Loader.Core.RootNode, "babylonjs_bakeAnimationsType", (int)BakeAnimationType.DoNotBakeAnimation);
             Tools.PrepareCheckBox(chkApplyPreprocessToScene, Loader.Core.RootNode, "babylonjs_applyPreprocess", 0);
 
-            if (comboOutputFormat.SelectedText == "babylon" || comboOutputFormat.SelectedText == "binary babylon" || !gltfPipelineInstalled)
+            /*if (comboOutputFormat.SelectedText == "babylon" || comboOutputFormat.SelectedText == "binary babylon" || !gltfPipelineInstalled)
             {
-                //chkDracoCompression.Checked = false;
-                //chkDracoCompression.Enabled = false;
-            }
+                chkDracoCompression.Checked = false;
+                chkDracoCompression.Enabled = false;
+            }*/
 
 
             //Tools.PrepareCheckBox(chkFullPBR, Loader.Core.RootNode, ExportParameters.PBRFullPropertyName);
@@ -842,8 +842,8 @@ namespace Max2Babylon
         {
             string outputFileExt;
             outputFileExt = comboOutputFormat.SelectedItem.ToString();
-            if (outputFileExt.Contains("binary babylon"))
-                outputFileExt = "babylon";
+            //if (outputFileExt.Contains("binary babylon"))
+            //    outputFileExt = "babylon";
 
             ExportItemList exportItemList = new ExportItemList(outputFileExt);
 
