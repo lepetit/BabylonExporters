@@ -770,60 +770,7 @@ namespace Babylon2GLTF
                     logger.RaiseVerbose("extensionsUsed: " + gltf.extensionsUsed);
 
                     //.NL.METADATA - QUA LI USO  
-                    if (babylonMaterial.metadata.ContainsKey("trans_ior"))
-                    {
-                        var data = babylonMaterial.metadata["trans_ior"];
-                        float[] floatArray = data as float[];
-
-                        var ext = new KHR_materials_ior()
-                        {
-                            ior = floatArray[0]
-                        };
-                        gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
-                        gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_ior", ext);
-                        logger.RaiseVerbose("Ior" + ext.ior);
-                    }
-
-                    if (babylonMaterial.metadata.ContainsKey("transparency"))
-                    {
-                        var data = babylonMaterial.metadata["transparency"];
-                        float[] floatArray = data as float[];
-
-                        var ext = new KHR_materials_transmission()
-                        {
-                            transmissionFactor = floatArray[0],
-                            transmissionTexture = null
-                        };
-                        gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
-                        gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_transmission", ext);
-                    }
-
-                    if (babylonMaterial.metadata.ContainsKey("sss_color"))
-                    {
-                        var data = babylonMaterial.metadata["sss_color"];
-                        float[] float4 = data as float[];
-                        float[] sss_color = new float[3];
-                        Array.Copy(float4, sss_color, sss_color.Length);
-
-                        data = babylonMaterial.metadata["sss_depth"];
-                        float[] sss_depth = data as float[];
-
-                        data = babylonMaterial.metadata["sss_scale"];
-                        float[] sss_scale = data as float[];
-
-                        var ext = new KHR_materials_volume()
-                        {
-                            thicknessFactor = sss_depth[0],
-                            thicknessTexture = null,
-                            attenuationColor = sss_color
-                        };
-                        if (sss_scale[0] != 0 && sss_scale[0] != float.PositiveInfinity)
-                        {
-                            ext.attenuationDistance = sss_scale[0]; //??? Boh?
-                        }
-                        gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
-                        gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_volume", ext);
-                    }
+                    add_KHR_extensions(babylonMaterial, gltfMaterial, gltf);
                 }
 
                 // Alpha
@@ -1027,6 +974,71 @@ namespace Babylon2GLTF
                 }
             }
         }
+
+
+        /// <summary>
+        /// VRMUR - export KHR Extensions
+        /// 
+        ///.NL.METADATA - QUA LI USO  
+        /// </summary>
+        private void add_KHR_extensions(BabylonMaterial babylonMaterial, GLTFMaterial gltfMaterial, GLTF gltf) {
+
+            if (babylonMaterial.metadata.ContainsKey("trans_ior"))
+            {
+                var data = babylonMaterial.metadata["trans_ior"];
+                float[] floatArray = data as float[];
+
+                var ext = new KHR_materials_ior()
+                {
+                    ior = floatArray[0]
+                };
+                gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
+                gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_ior", ext);
+                logger.RaiseVerbose("Ior" + ext.ior);
+            }
+
+            if (babylonMaterial.metadata.ContainsKey("transparency"))
+            {
+                var data = babylonMaterial.metadata["transparency"];
+                float[] floatArray = data as float[];
+
+                var ext = new KHR_materials_transmission()
+                {
+                    transmissionFactor = floatArray[0],
+                    transmissionTexture = null
+                };
+                gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
+                gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_transmission", ext);
+            }
+
+            if (babylonMaterial.metadata.ContainsKey("sss_color"))
+            {
+                var data = babylonMaterial.metadata["sss_color"];
+                float[] float4 = data as float[];
+                float[] sss_color = new float[3];
+                Array.Copy(float4, sss_color, sss_color.Length);
+
+                data = babylonMaterial.metadata["sss_depth"];
+                float[] sss_depth = data as float[];
+
+                data = babylonMaterial.metadata["sss_scale"];
+                float[] sss_scale = data as float[];
+
+                var ext = new KHR_materials_volume()
+                {
+                    thicknessFactor = sss_depth[0],
+                    thicknessTexture = null,
+                    attenuationColor = sss_color
+                };
+                if (sss_scale[0] != 0 && sss_scale[0] != float.PositiveInfinity)
+                {
+                    ext.attenuationDistance = sss_scale[0]; //??? Boh?
+                }
+                gltfMaterial.extensions = gltfMaterial.extensions ?? new GLTFExtensions(); // ensure extensions exist
+                gltfMaterial.extensions.AddExtension(gltf, "KHR_materials_volume", ext);
+            }
+        }
+
 
         // TODO - use of interface to avoid use of 3 similar function
         private void getAlphaMode(BabylonStandardMaterial babylonMaterial, out GLTFMaterial.AlphaMode alphaMode, out float? alphaCutoff)
