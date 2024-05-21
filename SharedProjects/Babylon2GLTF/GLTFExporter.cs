@@ -64,7 +64,7 @@ namespace Babylon2GLTF
             var softwareVersion = babylonScene.producer != null ? babylonScene.producer.version : "";
             var exporterVersion = babylonScene.producer != null ? babylonScene.producer.exporter_version : "";
 
-            gltf.asset.generator = $"babylon.js glTF exporter for {softwarePackageName} {softwareVersion} v{exporterVersion}";
+            gltf.asset.generator = $"VRMUR exporter for {softwarePackageName} {softwareVersion} v{exporterVersion}";
 
             // Scene
             gltf.scene = 0;

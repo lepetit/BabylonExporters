@@ -37,7 +37,7 @@ namespace Max2Babylon
 
         public override string ButtonText
         {
-            get { return "Babylon Store AnimationGroups..."; }
+            get { return "VrMur Store AnimationGroups..."; }
         }
 
         public override string MenuText
@@ -47,11 +47,11 @@ namespace Max2Babylon
                 var selectedContainers = Tools.GetContainerInSelection();
                 if (selectedContainers?.Count > 0)
                 {
-                    return "&Babylon Store AnimationGroups to selected containers...";
+                    return "&VrMur Store AnimationGroups to selected containers...";
                 }
                 else
                 {
-                    return "&(Xref/Merge) Babylon Store AnimationGroups";
+                    return "&(Xref/Merge) VrMur Store AnimationGroups";
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace Max2Babylon
 
         public override string CategoryText
         {
-            get { return "Babylon"; }
+            get { return "VrMur"; }
         }
 
         public override bool IsChecked_

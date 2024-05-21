@@ -5,6 +5,8 @@ using Autodesk.Max;
 using Utilities;
 using BabylonExport.Entities;
 using System.Drawing;
+using System.Runtime.ConstrainedExecution;
+using System.Diagnostics;
 
 namespace BabylonExport.Entities
 {
@@ -356,6 +358,36 @@ namespace Max2Babylon
                 ExportArnoldMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
                 RaiseVerbose("Arnold Material", 2);
             }
+            else if (isCoronaPhysicalMaterial(materialNode)) {
+                RaiseVerbose("IN isCoronaPhysicalMaterial", 2);
+
+                var babylonMaterial = new BabylonPBRMetallicRoughnessMaterial(id)
+                {
+                    maxGameMaterial = materialNode,
+                    name = name,
+                    isUnlit = isUnlit
+                };
+
+                ExportCoronaPhysicalMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
+                RaiseVerbose("CoronaPhysical Material", 2);
+
+            }
+            else if (isCoronaLayeredMaterial(materialNode))
+            {
+                RaiseVerbose("IN isCoronaLayeredMaterial", 2);
+
+                var babylonMaterial = new BabylonPBRMetallicRoughnessMaterial(id)
+                {
+                    maxGameMaterial = materialNode,
+                    name = name,
+                    isUnlit = isUnlit
+                };
+
+                ExportCoronaLayeredMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
+                RaiseVerbose("CoronaLayered Material", 2);
+
+            }
+
             else
             {
                 // isMaterialExportable check should prevent this to happen
@@ -1123,6 +1155,206 @@ namespace Max2Babylon
             }
         }
 
+        /// <summary>
+        /// Refer to this script for the conversion logic: https://github.com/jmdvella/3dsmax-scripts/blob/main/JV_CoronaToPhysical.ms
+        /// 
+        /*
+            0 - baseColor - Point3Prop
+            1 - baseLevel - FloatProp
+            2 - baseTexmap - UnknownProp
+            3 - baseTexmapOn - IntProp
+            4 - baseMapAmount - FloatProp
+            5 - metalnessMode - IntProp
+            6 - opacityColor - Point3Prop
+            7 - opacityLevel - FloatProp
+            8 - opacityTexmap - UnknownProp
+            9 - opacityTexmapOn - IntProp
+            10 - opacityMapAmount - FloatProp
+            11 - opacityCutout - IntProp
+            12 - baseRoughness - FloatProp
+            13 - baseRoughnessTexmap - UnknownProp
+            14 - baseRoughnessTexmapOn - IntProp
+            15 - baseRoughnessMapAmount - FloatProp
+            16 - baseAnisotropy - FloatProp
+            17 - baseAnisotropyTexmap - UnknownProp
+            18 - baseAnisotropyTexmapOn - IntProp
+            19 - baseAnisotropyMapAmount - FloatProp
+            20 - baseAnisoRotation - FloatProp
+            21 - baseAnisoRotationTexmap - UnknownProp
+            22 - baseAnisoRotationTexmapOn - IntProp
+            23 - baseAnisoRotationMapAmount - FloatProp
+            24 - baseIor - FloatProp
+            25 - baseIorTexmap - UnknownProp
+            26 - baseIorTexmapOn - IntProp
+            27 - baseIorMapAmount - FloatProp
+            28 - refractionAmount - FloatProp
+            29 - refractionAmountTexmap - UnknownProp
+            30 - refractionAmountTexmapOn - IntProp
+            31 - refractionAmountMapAmount - FloatProp
+            32 - dispersionEnable - IntProp
+            33 - dispersion - FloatProp
+            34 - useThinMode - IntProp
+            35 - useCaustics - IntProp
+            36 - clearcoatAmount - FloatProp
+            37 - clearcoatAmountTexmap - UnknownProp
+            38 - clearcoatAmountTexmapOn - IntProp
+            39 - clearcoatAmountMapAmount - FloatProp
+            40 - clearcoatIor - FloatProp
+            41 - clearcoatIorTexmap - UnknownProp
+            42 - clearcoatIorTexmapOn - IntProp
+            43 - clearcoatIorMapAmount - FloatProp
+            44 - clearcoatRoughness - FloatProp
+            45 - clearcoatRoughnessTexmap - UnknownProp
+            46 - clearcoatRoughnessTexmapOn - IntProp
+            47 - clearcoatRoughnessMapAmount - FloatProp
+            48 - sheenAmount - FloatProp
+            49 - sheenAmountTexmap - UnknownProp
+            50 - sheenAmountTexmapOn - IntProp
+            51 - sheenAmountMapAmount - FloatProp
+            52 - sheenColor - Point3Prop
+            53 - sheenColorTexmap - UnknownProp
+            54 - sheenColorTexmapOn - IntProp
+            55 - sheenColorMapAmount - FloatProp
+            56 - sheenRoughness - FloatProp
+            57 - sheenRoughnessTexmap - UnknownProp
+            58 - sheenRoughnessTexmapOn - IntProp
+            59 - sheenRoughnessMapAmount - FloatProp
+            60 - volumetricAbsorptionColor - Point3Prop
+            61 - volumetricAbsorptionTexmap - UnknownProp
+            62 - volumetricAbsorptionTexmapOn - IntProp
+            63 - volumetricAbsorptionMapAmount - FloatProp
+            64 - volumetricScatteringColor - Point3Prop
+            65 - volumetricScatteringTexmap - UnknownProp
+            66 - volumetricScatteringTexmapOn - IntProp
+            67 - volumetricScatteringMapAmount - FloatProp
+            68 - attenuationDistance - FloatProp
+            69 - scatterDirectionality - FloatProp
+            70 - scatterSingleBounce - IntProp
+            71 - sssAmount - FloatProp
+            72 - sssAmountTexmap - UnknownProp
+            73 - sssAmountTexmapOn - IntProp
+            74 - sssAmountMapAmount - FloatProp
+            75 - sssRadius - FloatProp
+            76 - sssRadiusTexmap - UnknownProp
+            77 - sssRadiusTexmapOn - IntProp
+            78 - sssRadiusMapAmount - FloatProp
+            79 - sssScatterColor - Point3Prop
+            80 - sssScatterTexmap - UnknownProp
+            81 - sssScatterTexmapOn - IntProp
+            82 - sssScatterMapAmount - FloatProp
+            83 - displacementMinimum - FloatProp
+            84 - displacementMaximum - FloatProp
+            85 - displacementWaterLevelOn - IntProp
+            86 - displacementWaterLevel - FloatProp
+            87 - displacementTexmap - UnknownProp
+            88 - displacementTexmapOn - IntProp
+            89 - selfIllumColor - Point3Prop
+            90 - selfIllumLevel - FloatProp
+            91 - selfIllumTexmap - UnknownProp
+            92 - selfIllumTexmapOn - IntProp
+            93 - selfIllumMapAmount - FloatProp
+            94 - alphaMode - IntProp
+            95 - gBufferOverride - IntProp
+            96 - anisotropyOrientationMode - IntProp
+            97 - anisotropyOrientationUvwChannel - IntProp
+            98 - renderElementPropagation - IntProp
+            99 - materialLibraryId - StringProp
+            100 - baseBumpTexmap - UnknownProp
+            101 - baseBumpTexmapOn - IntProp
+            102 - baseBumpMapAmount - FloatProp
+            103 - bgOverrideReflectTexmap - UnknownProp
+            104 - bgOverrideReflectTexmapOn - IntProp
+            105 - bgOverrideRefractTexmap - UnknownProp
+            106 - bgOverrideRefractTexmapOn - IntProp
+            107 - translucencyFraction - FloatProp
+            108 - translucencyFractionTexmap - UnknownProp
+            109 - translucencyFractionTexmapOn - IntProp
+            110 - translucencyFractionMapAmount - FloatProp
+            111 - thinAbsorptionColor - Point3Prop
+            112 - thinAbsorptionTexmap - UnknownProp
+            113 - thinAbsorptionTexmapOn - IntProp
+            114 - thinAbsorptionMapAmount - FloatProp
+            115 - clearcoatAbsorptionColor - Point3Prop
+            116 - clearcoatAbsorptionTexmap - UnknownProp
+            117 - clearcoatAbsorptionTexmapOn - IntProp
+            118 - clearcoatAbsorptionMapAmount - FloatProp
+            119 - clearcoatBumpTexmap - UnknownProp
+            120 - clearcoatBumpTexmapOn - IntProp
+            121 - clearcoatBumpMapAmount - FloatProp
+            122 - metalnessTexmap - UnknownProp
+            123 - metalnessTexmapOn - IntProp
+            124 - roughnessMode - IntProp
+            125 - preset - IntProp
+            126 - edgeColor - Point3Prop
+            127 - edgeColorTexmap - UnknownProp
+            128 - edgeColorTexmapOn - IntProp
+            129 - edgeColorMapAmount - FloatProp
+            130 - translucencyColor - Point3Prop
+            131 - translucencyColorTexmap - UnknownProp
+            132 - translucencyColorTexmapOn - IntProp
+            133 - translucencyColorMapAmount - FloatProp
+            134 - useComplexIor - IntProp
+            135 - complexIorNRed - FloatProp
+            136 - complexIorNGreen - FloatProp
+            137 - complexIorNBlue - FloatProp
+            138 - complexIorKRed - FloatProp
+            139 - complexIorKGreen - FloatProp
+            140 - complexIorKBlue - FloatProp
+            141 - iorMode - IntProp
+            142 - baseTail - FloatProp
+            143 - baseTailTexmap - UnknownProp
+            144 - baseTailTexmapOn - IntProp
+            145 - baseTailMapAmount - FloatProp
+            146 - normalFilteringMode - IntProp
+            147 - enabled - IntProp
+            148 - effect - IntProp
+            149 - dxStdMat - IntProp
+            150 - SaveFXFile - UnknownProp
+        */
+        /// </summary>
+        /// <param name="materialNode"></param>
+        /// <param name="attributesContainer"></param>
+        /// <param name="babylonScene"></param>
+        /// <param name="babylonMaterial"></param>
+        private void ExportCoronaPhysicalMaterial(IIGameMaterial materialNode, IIPropertyContainer attributesContainer, BabylonScene babylonScene, BabylonPBRMetallicRoughnessMaterial babylonMaterial)
+        {
+            var propertyContainer = materialNode.IPropertyContainer;
+
+            for (int i = 0; i < propertyContainer.NumberOfProperties; i++) 
+            {
+                Trace.WriteLine($"{i} - {propertyContainer.GetProperty(i).Name} - {propertyContainer.GetProperty(i).GetType_}");
+            }
+
+            babylonMaterial.name = materialNode.MaterialName;
+            babylonMaterial.baseColor = propertyContainer.GetPoint3Property("baseColor").ToArray();
+            babylonMaterial.roughness = propertyContainer.GetFloatProperty("baseRoughness");
+
+            if (exportParameters.pbrFull)
+            {
+                var fullPBR = new BabylonPBRMaterial(babylonMaterial)
+                {
+                    directIntensity = attributesContainer?.GetIntProperty("babylonDirectIntensity") ?? 1.0f,
+                    emissiveIntensity = attributesContainer?.GetIntProperty("babylonEmissiveIntensity") ?? 1.0f,
+                    environmentIntensity = attributesContainer?.GetIntProperty("babylonEnvironmentIntensity") ?? 1.0f,
+                    specularIntensity = attributesContainer?.GetIntProperty("babylonSpecularIntensity") ?? 1.0f,
+                    maxGameMaterial = babylonMaterial.maxGameMaterial
+                };
+                babylonScene.MaterialsList.Add(fullPBR);
+            }
+            else
+            {
+                // Add the material to the scene
+                babylonScene.MaterialsList.Add(babylonMaterial);
+            }
+        }
+
+        private void ExportCoronaLayeredMaterial(IIGameMaterial materialNode, IIPropertyContainer attributesContainer, BabylonScene babylonScene, BabylonPBRMetallicRoughnessMaterial babylonMaterial)
+        {
+            var propertyContainer = materialNode.IPropertyContainer;
+        }
+
+
+
         public bool isPhysicalMaterial(IIGameMaterial materialNode)
         {
             return ClassIDWrapper.Physical_Material.Equals(materialNode.MaxMaterial.ClassID);
@@ -1152,6 +1384,16 @@ namespace Max2Babylon
         {
             return ClassIDWrapper.Shell_Material.Equals(materialNode.MaxMaterial.ClassID);
         }
+
+        public bool isCoronaPhysicalMaterial(IIGameMaterial materialNode) {
+            return ClassIDWrapper.Corona_Physical_Material.Equals(materialNode.MaxMaterial.ClassID);            
+        }
+
+        public bool isCoronaLayeredMaterial(IIGameMaterial materialNode)
+        {
+            return ClassIDWrapper.Corona_Layered_Material.Equals(materialNode.MaxMaterial.ClassID);
+        }
+
 
         /// <summary>
         /// Return null if the material is supported.
@@ -1193,6 +1435,11 @@ namespace Max2Babylon
 
                 // Double sided material
                 if (isDoubleSidedMaterial(materialNode))
+                {
+                    return null;
+                }
+
+                if (isCoronaLayeredMaterial(materialNode))
                 {
                     return null;
                 }
@@ -1245,6 +1492,12 @@ namespace Max2Babylon
                 if (isDirectXShaderMaterial(materialNode))
                 {
                     return isMaterialSupported(GetRenderMaterialFromDirectXShader(materialNode));
+                }
+
+                // Corona material
+                if(isCoronaPhysicalMaterial(materialNode))
+                {
+                    return null;
                 }
             }
             return materialNode;

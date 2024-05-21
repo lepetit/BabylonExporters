@@ -20,7 +20,7 @@ namespace Max2Babylon
     }
 
     delegate string TryWriteImageCallback(string sourceTexturePath);
-    
+
     internal interface IMaxGLTFMaterialExporter : IMaxMaterialExporter
     {
         /// <summary>
@@ -79,6 +79,8 @@ namespace Max2Babylon
         public static readonly ClassIDWrapper Passthrough_Material = new ClassIDWrapper(0x7e73161f, 0x625bb28f);
         public static readonly ClassIDWrapper Switch_Shader_Material = new ClassIDWrapper(0x7e73161f, 0xa844c228);
         public static readonly ClassIDWrapper Two_Sided_Material = new ClassIDWrapper(0x7e73161f, 0x7ffd6281);
+        public static readonly ClassIDWrapper Corona_Physical_Material = new ClassIDWrapper(0x6912AB89, 0x87151720);
+        public static readonly ClassIDWrapper Corona_Layered_Material = new ClassIDWrapper(0x65486584, 0x8425554E);
 
         /// <summary>
         /// GamingMaterial are implemented as script standard extensions. The Magic ID is find at the beginning of each
@@ -95,12 +97,12 @@ namespace Max2Babylon
         public static readonly ClassIDWrapper Gltf_Material = new ClassIDWrapper(0x38420192, 0x45fe4e1b);
 
         public static readonly ClassIDWrapper Editable_Poly = new ClassIDWrapper(469250957, 422535320);
-        public static readonly ClassIDWrapper Sphere = new ClassIDWrapper(17,0);
+        public static readonly ClassIDWrapper Sphere = new ClassIDWrapper(17, 0);
 
         private uint partA, partB;
         public ClassIDWrapper(IClass_ID classID) { partA = classID.PartA; partB = classID.PartB; }
         public ClassIDWrapper(uint partA, uint partB) { this.partA = partA; this.partB = partB; }
-        
+
         public override bool Equals(object obj)
         {
             //       
@@ -118,7 +120,7 @@ namespace Max2Babylon
             ClassIDWrapper other = (ClassIDWrapper)obj;
             return Equals(other);
         }
-        
+
         public override int GetHashCode()
         {
             unchecked

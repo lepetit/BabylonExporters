@@ -683,9 +683,17 @@ namespace Babylon2GLTF
             do
             {
                 babylonMultiMaterial = babylonMultiMaterials.Find(_babylonMultiMaterial => _babylonMultiMaterial.id == babylonMaterialId);
-                if (babylonMultiMaterial != null)
+                //.NL.Workaround per i Corona_Layered_Material
+                if (babylonMultiMaterial != null && babylonSubMesh.materialIndex >= babylonMultiMaterial.materials.Length)
                 {
-                    babylonMaterialId = babylonMultiMaterial.materials[babylonSubMesh.materialIndex];
+                    babylonMultiMaterial = null;
+                }
+                else
+                {
+                    if (babylonMultiMaterial != null)
+                    {
+                        babylonMaterialId = babylonMultiMaterial.materials[babylonSubMesh.materialIndex];
+                    }
                 }
             }
             while (babylonMultiMaterial != null);

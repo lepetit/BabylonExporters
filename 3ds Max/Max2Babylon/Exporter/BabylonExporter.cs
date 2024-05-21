@@ -326,15 +326,11 @@ namespace Max2Babylon
             
             var outputBabylonDirectory = tempOutputDirectory;
 
-            // Force output file extension to be babylon
-            //outputFileName = Path.ChangeExtension(outputFileName, "babylon");
-
             var babylonScene = new BabylonScene(outputBabylonDirectory);
 
             var rawScene = Loader.Core.RootNode;
 
             string outputFormat = exportParameters.outputFormat;
-            //isBabylonExported = outputFormat == "babylon" || outputFormat == "binary babylon";
             isGltfExported = outputFormat == "gltf" || outputFormat == "glb";
 
             // Save scene

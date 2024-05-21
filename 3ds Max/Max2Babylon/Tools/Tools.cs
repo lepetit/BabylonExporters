@@ -129,8 +129,9 @@ namespace Max2Babylon
         {
             IPoint4 p4 = GetPoint4Property(propertyContainer, propName);
             return p4 != null ? p4.ToColor() : defaultValue;
-
         }
+
+
         // ---
 
         public static string GetStringProperty(this IIPropertyContainer propertyContainer, int indexProperty)

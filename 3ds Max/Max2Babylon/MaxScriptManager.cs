@@ -47,7 +47,7 @@ namespace Max2Babylon
                 Loader.AssemblyMain();
             }
             // Check output format is valid
-            List<string> validFormats = new List<string>(new string[] { /*"babylon", "binary babylon",*/ "gltf", "glb" });
+            List<string> validFormats = new List<string>(new string[] { "gltf", "glb" });
             if (!validFormats.Contains(exportParameters.outputFormat))
             {
                 Autodesk.Max.GlobalInterface.Instance.TheListener.EditStream.Printf("ERROR - Valid output formats are: "+ validFormats.ToArray().ToString(true) + "\n");

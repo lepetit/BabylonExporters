@@ -52,22 +52,22 @@ namespace Max2Babylon
 
         public override string ButtonText
         {
-            get { return "Babylon Properties"; }
+            get { return "VrMur Properties"; }
         }
 
         public override string MenuText
         {
-            get { return "Babylon Properties"; }
+            get { return "VrMur Properties"; }
         }
 
         public override string DescriptionText
         {
-            get { return "Babylon - setting specific properties"; }
+            get { return "VrMur - setting specific properties"; }
         }
 
         public override string CategoryText
         {
-            get { return "Babylon"; }
+            get { return "VrMur"; }
         }
 
         public override bool IsChecked_
