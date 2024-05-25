@@ -872,7 +872,7 @@ namespace Max2Babylon
                 }
             }
 
-            RaiseError($"Texture type is not supported. Use a Bitmap or Normal Bump map instead.", 2);
+            RaiseError($"Texture type " + texMap.ClassName(false) + " is not supported. Use a Bitmap or Normal Bump map instead.", 2);
             return null;
         }
 
@@ -1489,7 +1489,7 @@ namespace Max2Babylon
                 return null;
             }
 
-            RaiseError($"Texture type is not supported. Use a Bitmap or RGB Multiply map instead.", 2);
+            RaiseError($"Texture type " + texMap.ClassName(false) + " is not supported. Use a Bitmap or RGB Multiply map instead.", 2);
             return null;
         }
 

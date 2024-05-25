@@ -35,7 +35,7 @@ namespace Max2Babylon
 
         public IIPropertyContainer Properties => _node.IPropertyContainer;
         public string Id => _node.MaxMaterial.GetGuid().ToString();
-        public string Name => _node.MaterialName; 
+        public string Name => _node.MaterialName;
         public IIGameMaterial Node => _node;
 
         protected ITexmap _getTexMapWithCache(IIGameMaterial materialNode, string name)
@@ -87,7 +87,7 @@ namespace Max2Babylon
                 {
 #if MAX2024
                     // 3dsMax2024+ introduced new localized flag
-                    var slotName = materialNode.MaxMaterial.GetSubTexmapSlotName(i, false);   
+                    var slotName = materialNode.MaxMaterial.GetSubTexmapSlotName(i, false);
 #else
                     var slotName = materialNode.MaxMaterial.GetSubTexmapSlotName(i);
 #endif
@@ -185,7 +185,7 @@ namespace Max2Babylon
             RaiseMessage("ExportMaterial:" + name, 1);
 
             // --- prints ---
-#region prints
+            #region prints
             {
                 RaiseVerbose("materialNode.MaterialClass=" + materialNode.MaterialClass, 2);
                 RaiseVerbose("materialNode.NumberOfTextureMaps=" + materialNode.NumberOfTextureMaps, 2);
@@ -217,6 +217,13 @@ namespace Max2Babylon
 
                     if (subMat != null)
                     {
+                        //.NL.Gestione dei Corona_Layered_Material
+                        //TODO Per adesso prendiamo il primo subMateriale e lo usiamo al posto del Layered_Material
+                        while (subMat.SubMaterialCount > 0 && isCoronaLayeredMaterial(subMat))
+                        {
+                            subMat = subMat.GetSubMaterial(0);
+                        }
+
                         if (subMat.SubMaterialCount > 0)
                         {
                             RaiseError("MultiMaterials as inputs to other MultiMaterials are not supported!");
@@ -247,7 +254,7 @@ namespace Max2Babylon
             // Retreive Attributes container
             IIPropertyContainer attributesContainer = materialNode.IPropertyContainer;
 
-            bool isUnlit = attributesContainer?.GetBoolProperty("babylonUnlit", false)??false;
+            bool isUnlit = attributesContainer?.GetBoolProperty("babylonUnlit", false) ?? false;
 
             // check custom exporters first, to allow custom exporters of supported material classes
             materialExporters.TryGetValue(new ClassIDWrapper(materialNode.MaxMaterial.ClassID), out IMaxMaterialExporter materialExporter);
@@ -358,7 +365,8 @@ namespace Max2Babylon
                 ExportArnoldMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
                 RaiseVerbose("Arnold Material", 2);
             }
-            else if (isCoronaPhysicalMaterial(materialNode)) {
+            else if (isCoronaPhysicalMaterial(materialNode))
+            {
                 RaiseVerbose("IN isCoronaPhysicalMaterial", 2);
 
                 var babylonMaterial = new BabylonPBRMetallicRoughnessMaterial(id)
@@ -385,7 +393,11 @@ namespace Max2Babylon
 
                 ExportCoronaLayeredMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
                 RaiseVerbose("CoronaLayered Material", 2);
+            }
 
+            else if (isCoronaLegacyMaterial(materialNode))
+            {
+                RaiseVerbose("IN isCoronaLegacyMaterial", 2);
             }
 
             else
@@ -870,7 +882,7 @@ namespace Max2Babylon
             // Export the custom attributes of this material
             babylonMaterial.metadata = ExportExtraAttributes(materialNode, babylonScene, excludeAttributes);
 
-            RaiseVerbose("GroupedProperty["+ babylonMaterial.name+ "]: " + (babylonMaterial.metadata != null), 2);
+            RaiseVerbose("GroupedProperty[" + babylonMaterial.name + "]: " + (babylonMaterial.metadata != null), 2);
 
             // Export additional info 
             getGroupedProperties(propertyContainer, babylonMaterial);
@@ -1049,7 +1061,7 @@ namespace Max2Babylon
 
 #if MAX2024
                         // 3dsMax2024+ introduced new localized flag
-                        if(materialNode.MaxMaterial.GetSubTexmapSlotName(i,false) == "normal")
+                        if (materialNode.MaxMaterial.GetSubTexmapSlotName(i, false) == "normal")
 #else
                         if(materialNode.MaxMaterial.GetSubTexmapSlotName(i) == "normal")
 #endif
@@ -1060,7 +1072,7 @@ namespace Max2Babylon
 
 #if MAX2024
                         // 3dsMax2024+ introduced new localized flag
-                        else if (materialNode.MaxMaterial.GetSubTexmapSlotName(i,false) == "emission")
+                        else if (materialNode.MaxMaterial.GetSubTexmapSlotName(i, false) == "emission")
 #else
                         else if (materialNode.MaxMaterial.GetSubTexmapSlotName(i) == "emission")
 #endif
@@ -1320,7 +1332,7 @@ namespace Max2Babylon
         {
             var propertyContainer = materialNode.IPropertyContainer;
 
-            for (int i = 0; i < propertyContainer.NumberOfProperties; i++) 
+            for (int i = 0; i < propertyContainer.NumberOfProperties; i++)
             {
                 Trace.WriteLine($"{i} - {propertyContainer.GetProperty(i).Name} - {propertyContainer.GetProperty(i).GetType_}");
             }
@@ -1385,8 +1397,9 @@ namespace Max2Babylon
             return ClassIDWrapper.Shell_Material.Equals(materialNode.MaxMaterial.ClassID);
         }
 
-        public bool isCoronaPhysicalMaterial(IIGameMaterial materialNode) {
-            return ClassIDWrapper.Corona_Physical_Material.Equals(materialNode.MaxMaterial.ClassID);            
+        public bool isCoronaPhysicalMaterial(IIGameMaterial materialNode)
+        {
+            return ClassIDWrapper.Corona_Physical_Material.Equals(materialNode.MaxMaterial.ClassID);
         }
 
         public bool isCoronaLayeredMaterial(IIGameMaterial materialNode)
@@ -1394,6 +1407,10 @@ namespace Max2Babylon
             return ClassIDWrapper.Corona_Layered_Material.Equals(materialNode.MaxMaterial.ClassID);
         }
 
+        public bool isCoronaLegacyMaterial(IIGameMaterial materialNode)
+        {
+            return ClassIDWrapper.Corona_Legacy_Material.Equals(materialNode.MaxMaterial.ClassID);
+        }
 
         /// <summary>
         /// Return null if the material is supported.
@@ -1440,6 +1457,11 @@ namespace Max2Babylon
                 }
 
                 if (isCoronaLayeredMaterial(materialNode))
+                {
+                    return null;
+                }
+
+                if (isCoronaLegacyMaterial(materialNode))
                 {
                     return null;
                 }
@@ -1495,7 +1517,12 @@ namespace Max2Babylon
                 }
 
                 // Corona material
-                if(isCoronaPhysicalMaterial(materialNode))
+                if (isCoronaPhysicalMaterial(materialNode))
+                {
+                    return null;
+                }
+
+                if (isCoronaLegacyMaterial(materialNode))
                 {
                     return null;
                 }
@@ -1573,7 +1600,7 @@ namespace Max2Babylon
         private void ExportCommonBabylonAttributes(IIPropertyContainer babylonAttributesContainer, BabylonMaterial babylonMaterial)
         {
             int maxSimultaneousLights = babylonAttributesContainer.GetIntProperty("babylonMaxSimultaneousLights", 4);
-            maxSimultaneousLights = Math.Min(100,Math.Max(maxSimultaneousLights,1));// force to be [1,100], because of 3DSMax Slider issue.
+            maxSimultaneousLights = Math.Min(100, Math.Max(maxSimultaneousLights, 1));// force to be [1,100], because of 3DSMax Slider issue.
             RaiseVerbose($"maxSimultaneousLights={maxSimultaneousLights}", 3);
             babylonMaterial.maxSimultaneousLights = maxSimultaneousLights;
 

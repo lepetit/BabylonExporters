@@ -81,6 +81,7 @@ namespace Max2Babylon
         public static readonly ClassIDWrapper Two_Sided_Material = new ClassIDWrapper(0x7e73161f, 0x7ffd6281);
         public static readonly ClassIDWrapper Corona_Physical_Material = new ClassIDWrapper(0x6912AB89, 0x87151720);
         public static readonly ClassIDWrapper Corona_Layered_Material = new ClassIDWrapper(0x65486584, 0x8425554E);
+        public static readonly ClassIDWrapper Corona_Legacy_Material = new ClassIDWrapper(0x70BE6506, 0x448931DD);
 
         /// <summary>
         /// GamingMaterial are implemented as script standard extensions. The Magic ID is find at the beginning of each
