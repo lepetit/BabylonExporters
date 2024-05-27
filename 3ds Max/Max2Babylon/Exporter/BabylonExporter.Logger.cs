@@ -351,8 +351,6 @@ namespace Max2Babylon
             return false;
         }
 
-
-
         public object getPropertyValue(IIGameProperty prop)
         {
             if (prop != null)
@@ -385,6 +383,50 @@ namespace Max2Babylon
                         IPoint4 propertyPoint4 = Loader.Global.Point4.Create(0, 0, 0, 0);
                         prop.GetPropertyValue(propertyPoint4, 0);
                         return propertyPoint4.ToArray();
+
+                    case PropType.UnknownProp:
+                    default:
+                        return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public string propertyValueToString(IIGameProperty prop)
+        {
+            if (prop != null)
+            {
+                switch (prop.GetType_)
+                {
+                    case PropType.StringProp:
+                        string propertyString = "";
+                        prop.GetPropertyValue(ref propertyString, 0);
+                        return propertyString;
+
+                    case PropType.IntProp:
+                        int propertyInt = 0;
+                        prop.GetPropertyValue(ref propertyInt, 0);
+                        return propertyInt.ToString();
+
+                    case PropType.FloatProp:
+                        float propertyFloatT = 0;
+                        float propertyFloatF = 0;
+                        prop.GetPropertyValue(ref propertyFloatT, 0, true);
+                        prop.GetPropertyValue(ref propertyFloatF, 0, false);
+                        return $"{propertyFloatT}, {propertyFloatF}";
+
+                    case PropType.Point3Prop:
+                        IPoint3 propertyPoint3 = Loader.Global.Point3.Create(0, 0, 0);
+                        prop.GetPropertyValue(propertyPoint3, 0);
+                        return Point3ToString(propertyPoint3);
+
+                    case PropType.Point4Prop:
+                        IPoint4 propertyPoint4 = Loader.Global.Point4.Create(0, 0, 0, 0);
+                        prop.GetPropertyValue(propertyPoint4, 0);
+                        return Point4ToString(propertyPoint4);
 
                     case PropType.UnknownProp:
                     default:

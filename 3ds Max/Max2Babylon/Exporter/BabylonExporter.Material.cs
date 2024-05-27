@@ -1348,7 +1348,8 @@ namespace Max2Babylon
 
             for (int i = 0; i < propertyContainer.NumberOfProperties; i++)
             {
-                Trace.WriteLine($"{i} - {propertyContainer.GetProperty(i).Name} - {propertyContainer.GetProperty(i).GetType_}");
+                var prop = propertyContainer.GetProperty(i);
+                Trace.WriteLine($"{i} - {prop.Name} - {prop.GetType_}: {propertyValueToString(prop)}");
             }
 
             babylonMaterial.name = materialNode.MaterialName;
@@ -1419,11 +1420,15 @@ namespace Max2Babylon
         {
             var propertyContainer = materialNode.IPropertyContainer;
 
+            babylonMaterial.name = materialNode.MaterialName;
+            babylonMaterial.baseColor = propertyContainer.GetPoint3Property("color").ToArray();
+
             Trace.WriteLine($"{materialNode.MaterialName}");
 
             for (int i = 0; i < propertyContainer.NumberOfProperties; i++)
             {
-                Trace.WriteLine($"{i} - {propertyContainer.GetProperty(i).Name} - {propertyContainer.GetProperty(i).GetType_}");
+                var prop = propertyContainer.GetProperty(i);
+                Trace.WriteLine($"{i} - {prop.Name} - {prop.GetType_}: {propertyValueToString(prop)}");
             }
         }
 
