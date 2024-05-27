@@ -378,7 +378,6 @@ namespace Max2Babylon
 
                 ExportCoronaPhysicalMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
                 RaiseVerbose("CoronaPhysical Material", 2);
-
             }
             else if (isCoronaLayeredMaterial(materialNode))
             {
@@ -399,11 +398,26 @@ namespace Max2Babylon
             {
                 RaiseVerbose("IN isCoronaLegacyMaterial", 2);
             }
+            
+            else if (isCoronaLightMaterial(materialNode))
+            {
+                RaiseVerbose("IN isCoronaLightMaterial", 2);
+
+                var babylonMaterial = new BabylonPBRMetallicRoughnessMaterial(id)
+                {
+                    maxGameMaterial = materialNode,
+                    name = name,
+                    isUnlit = isUnlit
+                };
+
+                ExportCoronaLightMaterial(materialNode, attributesContainer, babylonScene, babylonMaterial);
+                RaiseVerbose("CoronaLight Material", 2);
+            }
 
             else
             {
                 // isMaterialExportable check should prevent this to happen
-                RaiseError("Unsupported material type: " + materialNode.MaterialClass, 2);
+                RaiseError($"Unsupported material type: {materialNode.MaterialClass} {materialNode.MaxMaterial.ClassID.PartA.ToString("X")} {materialNode.MaxMaterial.ClassID.PartB.ToString("X")}", 2);
             }
         }
 
@@ -1365,6 +1379,54 @@ namespace Max2Babylon
             var propertyContainer = materialNode.IPropertyContainer;
         }
 
+        /// <summary>
+        /*
+            0 - intensity - FloatProp
+            1 - texmapOn - IntProp
+            2 - texmap - UnknownProp
+            3 - color - Point3Prop
+            4 - affectAlpha - IntProp
+            5 - occludeOther - IntProp
+            6 - emitLight - IntProp
+            7 - visibleRefl - IntProp
+            8 - visibleDirect - IntProp
+            9 - visibleRefract - IntProp
+            10 - opacityTexmap - UnknownProp
+            11 - opacityTexmapOn - IntProp
+            12 - directionality - FloatProp
+            13 - excludeList - UnknownProp
+            14 - excludeListIncludeMod - IntProp
+            15 - visibleInMasks - IntProp
+            16 - shadowcatcherIlluminator - IntProp
+            17 - twosidedEmission - IntProp
+            18 - legacyMode - IntProp
+            19 - displayWire - IntProp
+            20 - removedParam - IntProp
+            21 - gBufferOverride - IntProp
+            22 - nondirectionalFake - IntProp
+            23 - visibleCaustics - IntProp
+            24 - enabled - IntProp
+            25 - effect - IntProp
+            26 - dxStdMat - IntProp
+            27 - SaveFXFile - UnknownProp
+        */
+        /// </summary>
+        /// <param name="materialNode"></param>
+        /// <param name="attributesContainer"></param>
+        /// <param name="babylonScene"></param>
+        /// <param name="babylonMaterial"></param>
+        private void ExportCoronaLightMaterial(IIGameMaterial materialNode, IIPropertyContainer attributesContainer, BabylonScene babylonScene, BabylonPBRMetallicRoughnessMaterial babylonMaterial) 
+        {
+            var propertyContainer = materialNode.IPropertyContainer;
+
+            Trace.WriteLine($"{materialNode.MaterialName}");
+
+            for (int i = 0; i < propertyContainer.NumberOfProperties; i++)
+            {
+                Trace.WriteLine($"{i} - {propertyContainer.GetProperty(i).Name} - {propertyContainer.GetProperty(i).GetType_}");
+            }
+        }
+
 
 
         public bool isPhysicalMaterial(IIGameMaterial materialNode)
@@ -1410,6 +1472,11 @@ namespace Max2Babylon
         public bool isCoronaLegacyMaterial(IIGameMaterial materialNode)
         {
             return ClassIDWrapper.Corona_Legacy_Material.Equals(materialNode.MaxMaterial.ClassID);
+        }
+
+        public bool isCoronaLightMaterial(IIGameMaterial materialNode)
+        {
+            return ClassIDWrapper.Corona_Light_Material.Equals(materialNode.MaxMaterial.ClassID);
         }
 
         /// <summary>
@@ -1516,13 +1583,8 @@ namespace Max2Babylon
                     return isMaterialSupported(GetRenderMaterialFromDirectXShader(materialNode));
                 }
 
-                // Corona material
-                if (isCoronaPhysicalMaterial(materialNode))
-                {
-                    return null;
-                }
-
-                if (isCoronaLegacyMaterial(materialNode))
+                // Corona materials
+                if (isCoronaPhysicalMaterial(materialNode) || isCoronaLegacyMaterial(materialNode) || isCoronaLightMaterial(materialNode))
                 {
                     return null;
                 }

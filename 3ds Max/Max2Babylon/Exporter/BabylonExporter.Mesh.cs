@@ -355,11 +355,11 @@ namespace Max2Babylon
                     {
                         if (mtl.SubMaterialCount == 0 || mtl == unsupportedMaterial)
                         {
-                            RaiseWarning("Unsupported material type '" + unsupportedMaterial.MaterialClass + "'. Material is ignored.", 2);
+                            RaiseWarning($"Unsupported material type '{unsupportedMaterial.MaterialClass}' {unsupportedMaterial.MaxMaterial.ClassID.PartA.ToString("X")} {unsupportedMaterial.MaxMaterial.ClassID.PartB.ToString("X")}. Material is ignored.", 2);
                         }
                         else
                         {
-                            RaiseWarning("Unsupported sub-material type '" + unsupportedMaterial.MaterialClass + "'. Material is ignored.", 2);
+                            RaiseWarning($"Unsupported sub-material type '{unsupportedMaterial.MaterialClass}' {unsupportedMaterial.MaxMaterial.ClassID.PartA.ToString("X")} {unsupportedMaterial.MaxMaterial.ClassID.PartB.ToString("X")}. Material is ignored.", 2);
                         }
                     }
                 }
@@ -774,11 +774,11 @@ namespace Max2Babylon
                     {
                         if (mtl.SubMaterialCount == 0 || mtl == unsupportedMaterial)
                         {
-                            RaiseWarning("Unsupported material type '" + unsupportedMaterial.MaterialClass + "'. Material is ignored.", 2);
+                            RaiseWarning($"Unsupported material type '{unsupportedMaterial.MaterialClass}' {unsupportedMaterial.MaxMaterial.ClassID.PartA.ToString("X")} {unsupportedMaterial.MaxMaterial.ClassID.PartB.ToString("X")}. Material is ignored.", 2);
                         }
                         else
                         {
-                            RaiseWarning("Unsupported sub-material type '" + unsupportedMaterial.MaterialClass + "'. Material is ignored.", 2);
+                            RaiseWarning($"Unsupported sub-material type '{unsupportedMaterial.MaterialClass}' {unsupportedMaterial.MaxMaterial.ClassID.PartA.ToString("X")} {unsupportedMaterial.MaxMaterial.ClassID.PartB.ToString("X")}. Material is ignored.", 2);
                         }
                     }
                 }
