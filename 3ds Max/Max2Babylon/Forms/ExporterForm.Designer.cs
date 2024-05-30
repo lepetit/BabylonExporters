@@ -719,7 +719,7 @@ namespace Max2Babylon
             // 
             this.saveOptionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveOptionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveOptionBtn.Location = new System.Drawing.Point(600, 723);
+            this.saveOptionBtn.Location = new System.Drawing.Point(600 + 115, 723);
             this.saveOptionBtn.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.saveOptionBtn.Name = "saveOptionBtn";
             this.saveOptionBtn.Size = new System.Drawing.Size(115, 28);
@@ -736,17 +736,17 @@ namespace Max2Babylon
             // 
             // butCopyToClipboard
             // 
-            this.butCopyToClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butCopyToClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butCopyToClipboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butCopyToClipboard.Location = new System.Drawing.Point(5, -1393);
+            this.butCopyToClipboard.Location = new System.Drawing.Point(600, 723);
             this.butCopyToClipboard.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.butCopyToClipboard.Name = "butCopyToClipboard";
-            this.butCopyToClipboard.Size = new System.Drawing.Size(148, 28);
+            this.butCopyToClipboard.Size = new System.Drawing.Size(115, 28);
             this.butCopyToClipboard.TabIndex = 105;
             this.butCopyToClipboard.Text = "Copy To Clipboard";
             this.butCopyToClipboard.UseVisualStyleBackColor = true;
             this.butCopyToClipboard.Click += new System.EventHandler(this.butCopyToClipboard_Click);
-            this.butCopyToClipboard.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExporterForm_KeyDown);
+//            this.butCopyToClipboard.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExporterForm_KeyDown);
             // 
             // exporterTabControl
             // 
@@ -857,7 +857,6 @@ namespace Max2Babylon
             // logTabPage
             // 
             this.logTabPage.Controls.Add(this.logTreeView);
-            this.logTabPage.Controls.Add(this.butCopyToClipboard);
             this.logTabPage.Location = new System.Drawing.Point(4, 25);
             this.logTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.logTabPage.Name = "logTabPage";
@@ -884,6 +883,7 @@ namespace Max2Babylon
             this.ClientSize = new System.Drawing.Size(1235, 765);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exporterTabControl);
+            this.Controls.Add(this.butCopyToClipboard);
             this.Controls.Add(this.saveOptionBtn);
             this.Controls.Add(this.butClose);
             this.Controls.Add(this.butCancel);

@@ -7,6 +7,7 @@ using BabylonExport.Entities;
 using System.Drawing;
 using System.Runtime.ConstrainedExecution;
 using System.Diagnostics;
+using Autodesk.Max.Plugins;
 
 namespace BabylonExport.Entities
 {
@@ -1422,6 +1423,8 @@ namespace Max2Babylon
 
             babylonMaterial.name = materialNode.MaterialName;
             babylonMaterial.baseColor = propertyContainer.GetPoint3Property("color").ToArray();
+
+            var texmap = propertyContainer.GetProperty(2);
 
             Trace.WriteLine($"{materialNode.MaterialName}");
 

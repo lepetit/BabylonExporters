@@ -667,6 +667,7 @@ namespace Max2Babylon
 
         private void butCopyToClipboard_Click(object sender, EventArgs e)
         {
+            logTreeView.ExpandAll();
             var textString = logTreeView.ToPrettyString();
             if (textString != string.Empty)
             {
